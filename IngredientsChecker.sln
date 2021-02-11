@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICWebUI", "ICWebUI\ICWebUI.
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ICData", "ICData\ICData.sqlproj", "{DEDE4637-FD5F-4FEA-80F8-406F4800D4B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICDataManager.Library", "ICDataManager.Library\ICDataManager.Library.csproj", "{66199114-F9AF-4A01-A680-4908BC53FEB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{DEDE4637-FD5F-4FEA-80F8-406F4800D4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEDE4637-FD5F-4FEA-80F8-406F4800D4B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEDE4637-FD5F-4FEA-80F8-406F4800D4B6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{66199114-F9AF-4A01-A680-4908BC53FEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66199114-F9AF-4A01-A680-4908BC53FEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66199114-F9AF-4A01-A680-4908BC53FEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66199114-F9AF-4A01-A680-4908BC53FEB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
