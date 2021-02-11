@@ -12,21 +12,21 @@ namespace ICDataManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IngredientsController : ControllerBase
+    public class IngredientTypesController : ControllerBase
     {
         private readonly IDataAccess _dataAccess;
 
-        public IngredientsController(IDataAccess dataAccess)
+        public IngredientTypesController(IDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
 
-        public async Task<List<IngredientModel>> Get()
+        public async Task<List<IngredientTypeModel>> Get()
         {
-            IngredientData ingredientData = new IngredientData();
-            var  ingredientsList = await ingredientData.GetAll(_dataAccess);
+            IngredientTypeData typeData = new IngredientTypeData();
+            var typesList = await typeData.GetAll(_dataAccess);
 
-            return ingredientsList;
+            return typesList;
         }
     }
 }
