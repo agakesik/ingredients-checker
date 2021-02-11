@@ -38,6 +38,11 @@ namespace ICDataManager
             services.AddControllers();
 
             services.AddSingleton<IDataAccess, SqlDataAccess>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +63,8 @@ namespace ICDataManager
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthentication();
             app.UseAuthorization();

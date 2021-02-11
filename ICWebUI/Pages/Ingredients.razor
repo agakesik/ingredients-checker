@@ -1,0 +1,58 @@
+﻿@page "/ingredients"
+@inject HttpClient Http 
+
+<h3>Lista składników</h3>
+
+@if (!string.IsNullOrWhiteSpace(errotMessage))
+{
+    <h4>Error</h4>
+    <p>@errotMessage</p>
+}
+else if (ingredientsList is null)
+{
+    <h4>Ładuję listę</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <td>Nazwa</td>
+                <td>Szczegóły</td>
+                <td>Id typu składnika</td>
+                <td>czy jest CG?</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ingredient in ingredientsList)
+            {
+                <tr>
+                    <td>@ingredient.Name</td>
+                    <td>@ingredient.Details</td>
+                    <td>@ingredient.IngredientTypeId</td>
+                    <td>@(ingredient.isItCG ? "jest" : "nie")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<IngredientModel> ingredientsList;
+    private string errotMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage responce = await Http.GetAsync("api/ingredients");
+
+        if (responce.IsSuccessStatusCode)
+        {
+            ingredientsList = await responce.Content.ReadFromJsonAsync<List<IngredientModel>>();
+        }
+        else
+        {
+            errotMessage = responce.ReasonPhrase;
+        }
+    }
+}
