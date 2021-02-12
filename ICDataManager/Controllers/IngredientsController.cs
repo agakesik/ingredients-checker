@@ -22,7 +22,7 @@ namespace ICDataManager.Controllers
         }
 
         [HttpGet]
-        public async Task<List<DisplayIngredientModel>> GetAllIngredients()
+        public async Task<List<DisplayIngredientModel>> GetAllIngredientsWithTheirTypes()
         {
             IngredientData ingredientData = new IngredientData();
             var  ingredientsList = await ingredientData.GetAll(_dataAccess);
@@ -30,12 +30,20 @@ namespace ICDataManager.Controllers
             IngredientTypeData typeData = new IngredientTypeData();
             var typesList = await typeData.GetAll(_dataAccess);
 
+            List<DisplayIngredientModel> detailedIngredientsList = GetIngrediensListForDisplay(ingredientsList, typesList);
+
+            
+
+            return detailedIngredientsList;
+        }
+
+        private List<DisplayIngredientModel> GetIngrediensListForDisplay(List<DBIngredientModel> ingredientsList, List<DBIngredientTypeModel> typesList)
+        {
             List<DisplayIngredientModel> detailedIngredientsList = new List<DisplayIngredientModel>();
 
             foreach (var ingredient in ingredientsList)
             {
-                DBIngredientTypeModel ingredientType = typesList.Where(type => type.Id == ingredient.IngredientTypeId)
-                                                                .FirstOrDefault();
+                DBIngredientTypeModel ingredientType = FindIngredientTypeByID(typesList, ingredient.IngredientTypeId);
                 if (ingredientType == null)
                 {
                     ingredientType = new DBIngredientTypeModel()
@@ -46,19 +54,6 @@ namespace ICDataManager.Controllers
                         Color = "",
                     };
                 }
-
-                //detailedIngredientsList.Add(new DisplayIngredientModel
-                //{
-                //    Name = ingredient.Name,
-                //    Details = ingredient.Details,
-                //    IngredientType = new DisplayIngredientTypeModel()
-                //    {
-                //        Name = "name",
-                //        Details = "szczegóły",
-                //        Color = "color"
-                //    },
-                //    IsItCG = ingredient.IsItCG
-                //});
 
                 detailedIngredientsList.Add(new DisplayIngredientModel
                 {
@@ -75,6 +70,11 @@ namespace ICDataManager.Controllers
             }
 
             return detailedIngredientsList;
+        }
+
+        private DBIngredientTypeModel FindIngredientTypeByID(List<DBIngredientTypeModel> typesList, int id)
+        {
+            return typesList.Where(type => type.Id == id).FirstOrDefault();
         }
     }
 }
