@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ICDataManager.Library.Models
+namespace ICWebUI.Models
 {
     public class IngredientTypeModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
         public string Color { get; set; }

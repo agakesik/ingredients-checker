@@ -21,7 +21,8 @@ namespace ICDataManager.Controllers
             _dataAccess = dataAccess;
         }
 
-        public async Task<List<IngredientTypeModel>> Get()
+        [HttpGet]
+        public async Task<List<DBIngredientTypeModel>> Get()
         {
             IngredientTypeData typeData = new IngredientTypeData();
             var typesList = await typeData.GetAll(_dataAccess);

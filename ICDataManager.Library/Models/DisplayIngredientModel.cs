@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ICWebUI.Models
+namespace ICDataManager.Library.Models
 {
-    public class IngredientModel
+    public class DisplayIngredientModel
     {
         public string Name { get; set; }
         public string Details { get; set; }
-        public IngredientTypeModel IngredientType { get; set; }
+        public DisplayIngredientTypeModel IngredientType { get; set; }
         public bool IsItCG { get; set; }
     }
 }

@@ -9,9 +9,9 @@ namespace ICDataManager.Library.Data
 {
     public class IngredientData
     {
-        public Task<List<IngredientModel>> GetAll(IDataAccess dataAccess)
+        public Task<List<DBIngredientModel>> GetAll(IDataAccess dataAccess)
         {
-            var ingredientsList = dataAccess.LoadData<IngredientModel, dynamic>("spIngredient_GetAll", new { }, "ICData");
+            var ingredientsList = dataAccess.LoadData<DBIngredientModel, dynamic>("spIngredient_GetAll", new { }, "ICData");
 
             return ingredientsList;
 

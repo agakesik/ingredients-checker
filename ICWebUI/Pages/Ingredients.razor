@@ -19,7 +19,8 @@ else
             <tr>
                 <td>Nazwa</td>
                 <td>Szczegóły</td>
-                <td>Id typu składnika</td>
+                <td>typ składnika</td>
+                <td>szczegóły typu</td>
                 <td>czy jest CG?</td>
             </tr>
         </thead>
@@ -29,8 +30,9 @@ else
                 <tr>
                     <td>@ingredient.Name</td>
                     <td>@ingredient.Details</td>
-                    <td>@ingredient.IngredientTypeId</td>
-                    <td>@(ingredient.isItCG ? "jest" : "nie")</td>
+                    <td>@ingredient.IngredientType.Name.</td>
+                    <td>@ingredient.IngredientType.Details</td>
+                    <td>@(ingredient.IsItCG ? "jest" : "nie")</td>
                 </tr>
             }
         </tbody>
