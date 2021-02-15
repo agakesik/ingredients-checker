@@ -1,11 +1,11 @@
 ﻿using ICDataManager.Library.Data;
 using ICDataManager.Library.DataAccess;
+using ICDataManager.Library.Helpers;
 using ICDataManager.Library.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ICDataManager.Controllers
@@ -15,66 +15,34 @@ namespace ICDataManager.Controllers
     public class IngredientsController : ControllerBase
     {
         private readonly IDataAccess _dataAccess;
+        private readonly IIngredientData _ingredientData;
+        private readonly IIngredientTypeData _ingredientsTypeData;
+        private readonly IDisplayHelper _displayHelper;
 
-        public IngredientsController(IDataAccess dataAccess)
+        public IngredientsController(IDataAccess dataAccess,
+                                     IIngredientData ingredientData,
+                                     IIngredientTypeData ingredientsTypeData,
+                                     IDisplayHelper displayHelper)
         {
             _dataAccess = dataAccess;
+            _ingredientData = ingredientData;
+            _ingredientsTypeData = ingredientsTypeData;
+            _displayHelper = displayHelper;
         }
 
         [HttpGet]
         public async Task<List<DisplayIngredientModel>> GetAllIngredientsWithTheirTypes()
         {
-            IngredientData ingredientData = new IngredientData();
-            var  ingredientsList = await ingredientData.GetAll(_dataAccess);
 
-            IngredientTypeData typeData = new IngredientTypeData();
-            var typesList = await typeData.GetAll(_dataAccess);
+            var  ingredientsList = await _ingredientData.GetAll(_dataAccess);
+            var typesList = await _ingredientsTypeData.GetAll(_dataAccess);
 
-            List<DisplayIngredientModel> detailedIngredientsList = GetIngrediensListForDisplay(ingredientsList, typesList);
+            List<DisplayIngredientModel> detailedIngredientsList = _displayHelper.GetIngrediensListForDisplay(ingredientsList, typesList);
 
-            
+
 
             return detailedIngredientsList;
         }
 
-        private List<DisplayIngredientModel> GetIngrediensListForDisplay(List<DBIngredientModel> ingredientsList, List<DBIngredientTypeModel> typesList)
-        {
-            List<DisplayIngredientModel> detailedIngredientsList = new List<DisplayIngredientModel>();
-
-            foreach (var ingredient in ingredientsList)
-            {
-                DBIngredientTypeModel ingredientType = FindIngredientTypeByID(typesList, ingredient.IngredientTypeId);
-                if (ingredientType == null)
-                {
-                    ingredientType = new DBIngredientTypeModel()
-                    {
-                        Id = ingredient.Id,
-                        Name = "",
-                        Details = "",
-                        Color = "",
-                    };
-                }
-
-                detailedIngredientsList.Add(new DisplayIngredientModel
-                {
-                    Name = ingredient.Name,
-                    Details = ingredient.Details,
-                    IngredientType = new DisplayIngredientTypeModel()
-                    {
-                        Name = ingredientType.Name,
-                        Details = ingredientType.Details,
-                        Color = ingredientType.Color
-                    },
-                    IsItCG = ingredient.IsItCG
-                });
-            }
-
-            return detailedIngredientsList;
-        }
-
-        private DBIngredientTypeModel FindIngredientTypeByID(List<DBIngredientTypeModel> typesList, int id)
-        {
-            return typesList.Where(type => type.Id == id).FirstOrDefault();
-        }
     }
 }

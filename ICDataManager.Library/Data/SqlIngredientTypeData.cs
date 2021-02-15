@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ICDataManager.Library.Data
 {
-    public class IngredientTypeData
+    public class SqlIngredientTypeData : IIngredientTypeData
     {
         public Task<List<DBIngredientTypeModel>> GetAll(IDataAccess dataAccess)
         {

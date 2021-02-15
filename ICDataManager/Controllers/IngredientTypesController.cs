@@ -15,17 +15,18 @@ namespace ICDataManager.Controllers
     public class IngredientTypesController : ControllerBase
     {
         private readonly IDataAccess _dataAccess;
+        private readonly IIngredientTypeData _ingredientTypeData;
 
-        public IngredientTypesController(IDataAccess dataAccess)
+        public IngredientTypesController(IDataAccess dataAccess, IIngredientTypeData ingredientTypeData)
         {
             _dataAccess = dataAccess;
+            _ingredientTypeData = ingredientTypeData;
         }
 
         [HttpGet]
         public async Task<List<DBIngredientTypeModel>> Get()
         {
-            IngredientTypeData typeData = new IngredientTypeData();
-            var typesList = await typeData.GetAll(_dataAccess);
+            var typesList = await _ingredientTypeData.GetAll(_dataAccess);
 
             return typesList;
         }

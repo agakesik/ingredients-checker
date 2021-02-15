@@ -1,5 +1,7 @@
 using ICDataManager.Data;
+using ICDataManager.Library.Data;
 using ICDataManager.Library.DataAccess;
+using ICDataManager.Library.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +40,9 @@ namespace ICDataManager
             services.AddControllers();
 
             services.AddSingleton<IDataAccess, SqlDataAccess>();
+            services.AddSingleton<IIngredientData, SqlIngredientData>();
+            services.AddSingleton<IIngredientTypeData, SqlIngredientTypeData>();
+            services.AddSingleton<IDisplayHelper, DisplayHelper>();
 
             services.AddCors(options =>
             {
