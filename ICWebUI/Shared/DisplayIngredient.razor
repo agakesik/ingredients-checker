@@ -1,0 +1,49 @@
+﻿<div class="list-group-item" @onclick="(() => isShowDetails = !isShowDetails)">
+    <h4>
+        <strong>@Ingredient.Name</strong>
+        @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Name))
+        {
+            <small>(@Ingredient.IngredientType.Name)</small>
+        }
+        @if (areDetails)
+        {
+            <small><span class="oi oi-chevron-bottom" aria-hidden="true"></span></small>
+        }
+
+    </h4>
+
+
+        @if (isShowDetails)
+            {
+                <div>
+                    @if (!string.IsNullOrWhiteSpace(Ingredient.Details))
+                    {
+                        <p>
+                            <strong>Ingredient details:</strong> @Ingredient.Details
+                        </p>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details))
+                    {
+                        <p>
+                            <strong>Ingredient Type details</strong> @Ingredient.IngredientType.Details
+                        </p>
+                    }
+                </div>
+            }
+    </div>
+
+    @code {
+        [Parameter]
+        public IngredientModel Ingredient { get; set; }
+
+        private bool isShowDetails = false;
+        private bool areDetails = false;
+
+        protected override void OnInitialized()
+        {
+            areDetails = !string.IsNullOrWhiteSpace(Ingredient.Details) || !string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details);
+        }
+
+
+    }
