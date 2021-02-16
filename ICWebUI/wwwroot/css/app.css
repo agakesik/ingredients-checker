@@ -8,6 +8,10 @@ a, .btn-link {
     color: #0366d6;
 }
 
+p {
+    margin: 0;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -134,6 +138,14 @@ app {
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+.ingredient-type-display {
+    color: #404040;
+}
+
+.ingredient-display-details strong {
+    color: #606060;
 }
 
 @media (max-width: 767.98px) {

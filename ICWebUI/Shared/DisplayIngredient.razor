@@ -1,9 +1,9 @@
-﻿<div class="list-group-item" @onclick="(() => isShowDetails = !isShowDetails)">
+﻿<div class="list-group-item ingredient-display-list" @onclick="(() => isShowDetails = !isShowDetails)">
     <h4>
         <strong>@Ingredient.Name</strong>
         @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Name))
         {
-            <small>(@Ingredient.IngredientType.Name)</small>
+            <small class="ingredient-type-display">(@Ingredient.IngredientType.Name)</small>
         }
         @if (areDetails)
         {
@@ -15,7 +15,7 @@
 
         @if (isShowDetails)
             {
-                <div>
+                <div class="ingredient-display-details">
                     @if (!string.IsNullOrWhiteSpace(Ingredient.Details))
                     {
                         <p>
@@ -26,7 +26,7 @@
                     @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details))
                     {
                         <p>
-                            <strong>Ingredient Type details</strong> @Ingredient.IngredientType.Details
+                            <strong>Ingredient Type details:</strong> @Ingredient.IngredientType.Details
                         </p>
                     }
                 </div>
