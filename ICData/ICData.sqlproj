@@ -66,8 +66,12 @@
     <Build Include="dbo\Tables\IngredientType.sql" />
     <Build Include="dbo\Stored Procedures\spIngredient_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientType_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredient_GetByName.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ICData.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ICData.refactorlog" />
   </ItemGroup>
 </Project>

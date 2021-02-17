@@ -3,6 +3,6 @@ AS
 begin
 	set nocount on;
 
-	select [Id], [name], [details], [color]
+	select [Id], [Name], [Details], [Color]
 	from dbo.IngredientType
 end
