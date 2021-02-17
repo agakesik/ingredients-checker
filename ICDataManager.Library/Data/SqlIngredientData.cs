@@ -2,6 +2,7 @@
 using ICDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,13 @@ namespace ICDataManager.Library.Data
 
             return ingredientsList;
 
+        }
+
+        public async Task<DBIngredientModel> GetByName(string name)
+        {
+            var ingredient = await _dataAccess.LoadData<DBIngredientModel, dynamic>("spIngredient_GetByName", new { Name = name }, "ICData");
+
+            return ingredient.FirstOrDefault();
         }
     }
 }
