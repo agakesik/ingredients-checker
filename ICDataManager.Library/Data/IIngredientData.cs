@@ -7,6 +7,6 @@ namespace ICDataManager.Library.Data
 {
     public interface IIngredientData
     {
-        Task<List<DBIngredientModel>> GetAll(IDataAccess dataAccess);
+        Task<List<DBIngredientModel>> GetAll();
     }
 }
