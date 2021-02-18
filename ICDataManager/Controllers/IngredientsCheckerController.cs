@@ -25,8 +25,8 @@ namespace ICDataManager.Controllers
             _ingredientsTypeData = ingredientsTypeData;
         }
 
-        [HttpGet]
-        public async Task<List<DisplayIngredientModel>> GetIngredientsCheckByName(string[] ingredientsNames)
+        [HttpPost]
+        public async Task<List<DisplayIngredientModel>> PostIngredientsNameForChecking(string[] ingredientsNames)
         {
             if (ingredientsNames.Length == 0)
             {
