@@ -19,6 +19,17 @@
     </div>
 </div>
 
+@if (notFoundNames != null)
+{
+    <div class="alert alert-danger">
+        <h4 >Nie znaleźliśmy wszystkich nazw. Sprawdź czy są wpisane poprawnie.</h4>
+        <small>Każdy składnik powinien być oddzielony przecinkiem i spacją na wzór: [składnik1, składnik2, składnik z paru wyrazów, składnik4]</small>
+        <p>
+            <strong>@notFoundNames</strong>
+        </p>
+    </div>
+}
+
 @if (ingredientsList != null)
 {
     <h3>znalezione składniki:</h3>
@@ -31,10 +42,12 @@
 }
 
 
+
 @code{
 
     public string IngredientsNames { get; set; }
     private List<IngredientModel> ingredientsList;
+    private string notFoundNames;
     private string HttpErrorString;
     private string InputErrorString;
 
@@ -50,8 +63,17 @@
         try
         {
             HttpResponseMessage responce = await Http.PostAsJsonAsync("api/ingredientschecker", namesArray);
-            Console.WriteLine("D:");
-            ingredientsList = await responce.Content.ReadFromJsonAsync<List<IngredientModel>>();
+            var content = await responce.Content.ReadFromJsonAsync<CheckedingredientsModel>();
+
+            if (content.IngredientsList.Count != 0)
+            {
+                ingredientsList = content.IngredientsList;
+            }
+
+            if (content.NotFoundNames.Count != 0)
+            {
+                notFoundNames = string.Join(", ", content.NotFoundNames);
+            }
 
         }
         catch (Exception ex)

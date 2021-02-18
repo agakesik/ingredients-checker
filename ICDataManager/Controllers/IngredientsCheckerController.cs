@@ -26,17 +26,24 @@ namespace ICDataManager.Controllers
         }
 
         [HttpPost]
-        public async Task<List<DisplayIngredientModel>> PostIngredientsNameForChecking(string[] ingredientsNames)
+        public async Task<CheckedIngredientsModel> PostIngredientsNameForChecking(string[] ingredientsNames)
         {
-            if (ingredientsNames.Length == 0)
+            if (ingredientsNames.GetLength(0) == 0)
             {
-                throw new ArgumentNullException("ingredientName", "list to check is empty");
+                throw new ArgumentNullException("ingredientName", "list of names to check is empty");
             }
 
             var dbIngredientsList = new List<DBIngredientModel>();
+            var notFoundNames = new List<string>();
             foreach (var name in ingredientsNames)
             {
                 var dbIngredient = await _ingredientData.GetByName(name);
+
+                if (dbIngredient == null)
+                {
+                    notFoundNames.Add(name);
+                    continue;
+                }
                 dbIngredientsList.Add(dbIngredient);
             }
 
@@ -44,8 +51,14 @@ namespace ICDataManager.Controllers
 
             List<DisplayIngredientModel> detailedIngredientsList = _displayHelper.GetIngrediensListForDisplay(dbIngredientsList, typesList);
 
+            var output = new CheckedIngredientsModel
+            {
+                IngredientsList = detailedIngredientsList,
+                NotFoundNames = notFoundNames
+            };
 
-            return detailedIngredientsList;
+
+            return output;
 
         }
     }
