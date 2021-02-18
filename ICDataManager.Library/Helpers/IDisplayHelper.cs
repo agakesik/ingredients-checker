@@ -1,10 +1,11 @@
 ﻿using ICDataManager.Library.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ICDataManager.Library.Helpers
 {
     public interface IDisplayHelper
     {
-        List<DisplayIngredientModel> GetIngrediensListForDisplay(List<DBIngredientModel> ingredientsList, List<DBIngredientTypeModel> typesList);
+        Task<List<DisplayIngredientModel>> GetIngrediensListForDisplay(List<DBIngredientModel> ingredientsList, List<DBIngredientTypeModel> typesList);
     }
 }

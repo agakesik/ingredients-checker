@@ -1,23 +1,33 @@
-﻿using ICDataManager.Library.Models;
+﻿using ICDataManager.Library.Data;
+using ICDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ICDataManager.Library.Helpers
 {
+
     public class DisplayHelper : IDisplayHelper
     {
-        public List<DisplayIngredientModel> GetIngrediensListForDisplay(List<DBIngredientModel> ingredientsList, List<DBIngredientTypeModel> typesList)
+        private readonly IIngredientNameData _ingredientNameData;
+
+        public DisplayHelper(IIngredientNameData ingredientNameData)
         {
-            List<DisplayIngredientModel> detailedIngredientsList = MapIngredientForDisplayModel(ingredientsList);
+            _ingredientNameData = ingredientNameData;
+        }
+
+        public async Task<List<DisplayIngredientModel>> GetIngrediensListForDisplay(List<DBIngredientModel> ingredientsList, List<DBIngredientTypeModel> typesList)
+        {
+            List<DisplayIngredientModel> detailedIngredientsList = await MapIngredientForDisplayModel(ingredientsList);
 
             AddIngredienTypeDetails(detailedIngredientsList, typesList);
 
             return detailedIngredientsList;
         }
 
-        private List<DisplayIngredientModel> MapIngredientForDisplayModel(List<DBIngredientModel> ingredientsList)
+        private async Task<List<DisplayIngredientModel>> MapIngredientForDisplayModel(List<DBIngredientModel> ingredientsList)
         {
             List<DisplayIngredientModel> detailedIngredientsList = new List<DisplayIngredientModel>();
 
@@ -25,7 +35,6 @@ namespace ICDataManager.Library.Helpers
             {
                 var detailedIngredient = new DisplayIngredientModel
                 {
-                    Name = ingredient.Name,
                     Details = ingredient.Details,
                     IngredientType = new DisplayIngredientTypeModel
                     {
@@ -34,6 +43,7 @@ namespace ICDataManager.Library.Helpers
                     IsItCG = ingredient.IsItCG
                 };
 
+                 await AddIngredientName(detailedIngredient, ingredient.MainNameId);
                 detailedIngredientsList.Add(detailedIngredient);
             }
 
@@ -64,6 +74,12 @@ namespace ICDataManager.Library.Helpers
         private DBIngredientTypeModel FindIngredientTypeByID(int id, List<DBIngredientTypeModel> typesList)
         {
             return typesList.Where(type => type.Id == id).FirstOrDefault();
+        }
+
+        private async Task AddIngredientName(DisplayIngredientModel detailedIngredientList, int id)
+        {
+            var nameInformation = await _ingredientNameData.GetById(id);
+            detailedIngredientList.Name = nameInformation.Name;
         }
     }
 }

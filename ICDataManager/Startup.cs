@@ -42,6 +42,7 @@ namespace ICDataManager
             services.AddSingleton<IDataAccess, SqlDataAccess>();
             services.AddSingleton<IIngredientData, SqlIngredientData>();
             services.AddSingleton<IIngredientTypeData, SqlIngredientTypeData>();
+            services.AddSingleton<IIngredientNameData, SqlIngredientNameData>();
             services.AddSingleton<IDisplayHelper, DisplayHelper>();
 
             services.AddCors(options =>
