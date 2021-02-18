@@ -3,7 +3,7 @@ AS
 begin
 	set nocount on;
 
-	select [Id], [Name], [Details], [IngredientTypeId], [IsItCg]
+	select [Id], [MainNameId], [Details], [IngredientTypeId], [IsItCg]
 	from dbo.Ingredient
 
 end

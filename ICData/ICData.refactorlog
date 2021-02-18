@@ -49,4 +49,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Color" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a1ca7dc9-2084-490e-a3e9-6055ce727884" ChangeDateTime="02/18/2021 12:46:53">
+    <Property Name="ElementName" Value="[dbo].[Ingredient].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Ingredient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MainName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="703dcaae-bb86-4a01-aac3-dc9f3a93a97e" ChangeDateTime="02/18/2021 12:47:14">
+    <Property Name="ElementName" Value="[dbo].[Ingredient].[MainName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Ingredient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MainNameID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="31e55e0a-1181-4a1f-a938-3156e57d4048" ChangeDateTime="02/18/2021 13:03:10">
+    <Property Name="ElementName" Value="[dbo].[Ingredient].[MainNameID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Ingredient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MainNameId" />
+  </Operation>
 </Operations>

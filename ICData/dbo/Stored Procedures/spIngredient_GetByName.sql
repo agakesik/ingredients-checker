@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[spIngredient_GetByName]
-	@Name nvarchar(50)
+	@MainNameID int
 AS
 begin
 	set nocount on;
 
-	select [Id], [Name], [Details], [IngredientTypeId], [IsItCg]
+	select [Id], [MainNameId], [Details], [IngredientTypeId], [IsItCg]
 	from dbo.Ingredient
-	where [Name] = @Name;
+	where MainNameID = @MainNameID;
 end
