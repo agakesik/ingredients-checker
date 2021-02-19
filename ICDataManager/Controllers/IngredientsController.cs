@@ -14,17 +14,14 @@ namespace ICDataManager.Controllers
     [ApiController]
     public class IngredientsController : ControllerBase
     {
-        private readonly IDataAccess _dataAccess;
         private readonly IIngredientData _ingredientData;
         private readonly IIngredientTypeData _ingredientsTypeData;
         private readonly IDisplayHelper _displayHelper;
 
-        public IngredientsController(IDataAccess dataAccess,
-                                     IIngredientData ingredientData,
+        public IngredientsController(IIngredientData ingredientData,
                                      IIngredientTypeData ingredientsTypeData,
                                      IDisplayHelper displayHelper)
         {
-            _dataAccess = dataAccess;
             _ingredientData = ingredientData;
             _ingredientsTypeData = ingredientsTypeData;
             _displayHelper = displayHelper;
@@ -34,10 +31,10 @@ namespace ICDataManager.Controllers
         public async Task<List<DisplayIngredientModel>> GetAllIngredientsWithTheirTypes()
         {
 
-            var  ingredientsList = await _ingredientData.GetAll(_dataAccess);
-            var typesList = await _ingredientsTypeData.GetAll(_dataAccess);
+            var  ingredientsList = await _ingredientData.GetAll();
+            var typesList = await _ingredientsTypeData.GetAll();
 
-            List<DisplayIngredientModel> detailedIngredientsList = _displayHelper.GetIngrediensListForDisplay(ingredientsList, typesList);
+            List<DisplayIngredientModel> detailedIngredientsList = await _displayHelper.GetIngrediensListForDisplay(ingredientsList, typesList);
 
 
 

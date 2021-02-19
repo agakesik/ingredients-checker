@@ -1,9 +1,10 @@
 ﻿CREATE TABLE [dbo].[Ingredient]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [name] NVARCHAR(50) NOT NULL, 
-    [details] NCHAR(256) NULL, 
-    [ingredientTypeId] INT NULL, 
-    [isItCg] BIT NOT NULL DEFAULT 0, 
-    CONSTRAINT [FK_Ingredient_ToIngredientType] FOREIGN KEY (ingredientTypeId) REFERENCES IngredientType(Id)
+    [MainNameId] INT NOT NULL, 
+    [Details] NVARCHAR(256) NULL, 
+    [IngredientTypeId] INT NULL, 
+    [IsItCg] BIT NOT NULL DEFAULT 0, 
+    CONSTRAINT [FK_Ingredient_ToIngredientType] FOREIGN KEY ([IngredientTypeId]) REFERENCES IngredientType(Id), 
+    CONSTRAINT [FK_Ingredient_ToIngredientName] FOREIGN KEY ([MainNameId]) REFERENCES IngredientName(Id)
 )

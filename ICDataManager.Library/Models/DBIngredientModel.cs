@@ -7,7 +7,7 @@ namespace ICDataManager.Library.Models
     public class DBIngredientModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int MainNameId { get; set; }
         public string Details { get; set; }
         public int IngredientTypeId { get; set; }
         public bool IsItCG { get; set; }

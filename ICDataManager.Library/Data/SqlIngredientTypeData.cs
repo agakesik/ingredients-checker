@@ -9,9 +9,15 @@ namespace ICDataManager.Library.Data
 {
     public class SqlIngredientTypeData : IIngredientTypeData
     {
-        public Task<List<DBIngredientTypeModel>> GetAll(IDataAccess dataAccess)
+        private readonly IDataAccess _dataAccess;
+
+        public SqlIngredientTypeData(IDataAccess dataAccess)
         {
-            var ingredientTypesList = dataAccess.LoadData<DBIngredientTypeModel, dynamic>("spIngredientType_GetAll", new { }, "ICData");
+            _dataAccess = dataAccess;
+        }
+        public Task<List<DBIngredientTypeModel>> GetAll()
+        {
+            var ingredientTypesList = _dataAccess.LoadData<DBIngredientTypeModel, dynamic>("spIngredientType_GetAll", new { }, "ICData");
 
             return ingredientTypesList;
         }
