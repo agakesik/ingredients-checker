@@ -8,6 +8,6 @@ namespace ICDataManager.Library.Data
     public interface IIngredientData
     {
         Task<List<DBIngredientModel>> GetAll();
-        Task<DBIngredientModel> GetByName(string name);
+        Task<DBIngredientModel> GetById(int id);
     }
 }

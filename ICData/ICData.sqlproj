@@ -69,6 +69,7 @@
     <Build Include="dbo\Stored Procedures\spIngredient_GetByName.sql" />
     <Build Include="dbo\Tables\IngredientName.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredientName_GetByName.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ICData.publish.xml" />
