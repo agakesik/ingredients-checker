@@ -39,11 +39,16 @@ namespace ICDataManager.Controllers
             var notFoundNames = new List<string>();
             foreach (var name in ingredientsNames)
             {
-                // TODO: tutaj trzeba zmienić szukanie po nazwie
                 var ingredientName = await _ingredientNameData.GetByName(name);
 
 
                 if (ingredientName == null)
+                {
+                    notFoundNames.Add(name);
+                    await _ingredientNameData.SaveName(name);
+                    continue;
+                }
+                else if (ingredientName.IngredientId == 0)
                 {
                     notFoundNames.Add(name);
                     continue;

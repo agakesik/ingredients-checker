@@ -1,7 +1,9 @@
-﻿using ICDataManager.Library.DataAccess;
+﻿using Dapper;
+using ICDataManager.Library.DataAccess;
 using ICDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,5 +32,17 @@ namespace ICDataManager.Library.Data
 
             return ingredientName.FirstOrDefault();
         }
+
+        public async Task<int> SaveName(string name)
+        {
+            DynamicParameters nameObject = new DynamicParameters();
+            nameObject.Add("Name", name);
+            nameObject.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dataAccess.SaveData("spIngredientName_AddName", nameObject, "ICData");
+
+            return nameObject.Get<int>("Id");
+        }
+
     }
 }
