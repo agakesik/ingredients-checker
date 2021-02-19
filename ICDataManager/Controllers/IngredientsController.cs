@@ -34,7 +34,7 @@ namespace ICDataManager.Controllers
             var  ingredientsList = await _ingredientData.GetAll();
             var typesList = await _ingredientsTypeData.GetAll();
 
-            List<DisplayIngredientModel> detailedIngredientsList = _displayHelper.GetIngrediensListForDisplay(ingredientsList, typesList);
+            List<DisplayIngredientModel> detailedIngredientsList = await _displayHelper.GetIngrediensListForDisplay(ingredientsList, typesList);
 
 
 

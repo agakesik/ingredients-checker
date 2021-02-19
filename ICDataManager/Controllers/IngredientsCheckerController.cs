@@ -17,12 +17,14 @@ namespace ICDataManager.Controllers
         private readonly IIngredientData _ingredientData;
         private readonly IDisplayHelper _displayHelper;
         private readonly IIngredientTypeData _ingredientsTypeData;
+        private readonly IIngredientNameData _ingredientNameData;
 
-        public IngredientsCheckerController(IIngredientData ingredientData, IDisplayHelper displayHelper, IIngredientTypeData ingredientsTypeData)
+        public IngredientsCheckerController(IIngredientData ingredientData, IDisplayHelper displayHelper, IIngredientTypeData ingredientsTypeData, IIngredientNameData ingredientNameData)
         {
             _ingredientData = ingredientData;
             _displayHelper = displayHelper;
             _ingredientsTypeData = ingredientsTypeData;
+            _ingredientNameData = ingredientNameData;
         }
 
         [HttpPost]
@@ -37,19 +39,23 @@ namespace ICDataManager.Controllers
             var notFoundNames = new List<string>();
             foreach (var name in ingredientsNames)
             {
-                var dbIngredient = await _ingredientData.GetByName(name);
+                // TODO: tutaj trzeba zmienić szukanie po nazwie
+                var ingredientName = await _ingredientNameData.GetByName(name);
 
-                if (dbIngredient == null)
+
+                if (ingredientName == null)
                 {
                     notFoundNames.Add(name);
                     continue;
                 }
+
+                var dbIngredient = await _ingredientData.GetById(ingredientName.IngredientId);
                 dbIngredientsList.Add(dbIngredient);
             }
 
             var typesList = await _ingredientsTypeData.GetAll();
 
-            List<DisplayIngredientModel> detailedIngredientsList = _displayHelper.GetIngrediensListForDisplay(dbIngredientsList, typesList);
+            List<DisplayIngredientModel> detailedIngredientsList = await _displayHelper.GetIngrediensListForDisplay(dbIngredientsList, typesList);
 
             var output = new CheckedIngredientsModel
             {
