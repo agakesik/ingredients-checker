@@ -55,6 +55,10 @@ namespace ICDataManager.Controllers
                 }
 
                 var dbIngredient = await _ingredientData.GetById(ingredientName.IngredientId);
+                
+                // TODO: there has to be nicer way to get back Ingredients with their searched name, not MainName
+                dbIngredient.MainNameId = ingredientName.Id;
+
                 dbIngredientsList.Add(dbIngredient);
             }
 
