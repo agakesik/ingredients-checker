@@ -49,8 +49,6 @@
     private List<IngredientModel> ingredientsList;
     private string notFoundNames;
     private string HttpErrorString;
-    private string InputErrorString;
-
     private async Task HandleValidSubmit()
     {
         if (string.IsNullOrEmpty(IngredientsNames))
@@ -62,7 +60,7 @@
 
         try
         {
-            HttpResponseMessage responce = await Http.PostAsJsonAsync("api/ingredientschecker", namesArray);
+            HttpResponseMessage responce = await Http.PostAsJsonAsync("api/ingredients/checker", namesArray);
             var content = await responce.Content.ReadFromJsonAsync<CheckedingredientsModel>();
 
             if (content.IngredientsList.Count != 0)
