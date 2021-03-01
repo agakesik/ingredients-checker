@@ -63,6 +63,9 @@
             HttpResponseMessage responce = await Http.PostAsJsonAsync("api/ingredients/checker", namesArray);
             var content = await responce.Content.ReadFromJsonAsync<CheckedingredientsModel>();
 
+            ingredientsList = null;
+            notFoundNames = null;
+
             if (content.IngredientsList.Count != 0)
             {
                 ingredientsList = content.IngredientsList;
