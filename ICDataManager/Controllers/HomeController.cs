@@ -37,7 +37,7 @@ namespace ICDataManager.Controllers
         }
 
         [Route("admin")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Admin()
         {
             return View();
