@@ -52,6 +52,13 @@ namespace ICDataManager.Library.Data
             return nameObject.Get<int>("Id");
         }
 
+        public async Task<int> Update(DBIngredientNameModel editedInformation)
+        {
+            return await _dataAccess.SaveData("spIngredientName_Update",
+                                        new { Id = editedInformation.Id, Name = editedInformation.Name, IngredientId = editedInformation.IngredientId },
+                                        "ICData");
+        }
+
         public async Task<int> DeleteName(int id)
         {
             return await _dataAccess.SaveData("spIngredientName_Delete", new { Id = id }, "ICData");

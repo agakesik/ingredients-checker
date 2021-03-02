@@ -40,7 +40,7 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Details", "Details", new { id=item.Id })
                     <form asp-action="Delete">
                         <input name="id" value="@item.Id" type="hidden" />
                         <input type="submit" value="delete" class="btn btn-danger" onclick="return confirm('Delete \'@item.Name\'?')" />

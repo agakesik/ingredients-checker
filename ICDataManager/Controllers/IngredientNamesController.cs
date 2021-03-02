@@ -31,7 +31,23 @@ namespace ICDataManager.Controllers
             return View(names);
         }
 
+        [HttpGet("details")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var name = await _ingredientNameData.GetById(id);
+            return View(name);
+        }
+
+        [HttpPost("update")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(DBIngredientNameModel editedInformation)
+        {
+            await _ingredientNameData.Update(editedInformation);
+            return RedirectToAction("Details", new { editedInformation.Id });
+        }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             await _ingredientNameData.DeleteName(id);

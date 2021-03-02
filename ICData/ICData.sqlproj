@@ -73,6 +73,7 @@
     <Build Include="dbo\Stored Procedures\spIngredientName_AddName.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredientName_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ICData.publish.xml" />
