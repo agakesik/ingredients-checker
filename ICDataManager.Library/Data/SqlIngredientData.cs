@@ -30,5 +30,10 @@ namespace ICDataManager.Library.Data
 
             return ingredient.FirstOrDefault();
         }
+
+        public async Task<int> DeleteIngredient(int id)
+        {
+            return await _dataAccess.SaveData("spIngredient_Delete", new { Id = id }, "ICData");
+        }
     }
 }

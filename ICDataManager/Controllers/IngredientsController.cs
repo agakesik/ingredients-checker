@@ -66,5 +66,14 @@ namespace ICDataManager.Controllers
             }
             return View(detailedIngredientsList);
         }
+
+        [HttpPost("delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _ingredientData.DeleteIngredient(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }
