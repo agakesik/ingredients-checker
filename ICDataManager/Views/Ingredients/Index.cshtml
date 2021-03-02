@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ICDataManager.Library.Models.DBIngredientModel>
+﻿@model IEnumerable<ICDataManager.Library.Models.ManageIngredientModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MainNameId)
+                @Html.DisplayNameFor(model => model.MainName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Details)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IngredientTypeId)
+                @Html.DisplayNameFor(model => model.IngredientType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsItCG)
@@ -37,13 +37,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MainNameId)
+                @Html.DisplayFor(modelItem => item.MainName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Details)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IngredientTypeId)
+                @Html.DisplayFor(modelItem => item.IngredientType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsItCG)

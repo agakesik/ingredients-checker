@@ -17,14 +17,17 @@ namespace ICDataManager.Controllers
         private readonly IIngredientData _ingredientData;
         private readonly IIngredientTypeData _ingredientsTypeData;
         private readonly IDisplayHelper _displayHelper;
+        private readonly IIngredientNameData _ingredientNameData;
 
         public IngredientsController(IIngredientData ingredientData,
                                      IIngredientTypeData ingredientsTypeData,
-                                     IDisplayHelper displayHelper)
+                                     IDisplayHelper displayHelper,
+                                     IIngredientNameData ingredientNameData)
         {
             _ingredientData = ingredientData;
             _ingredientsTypeData = ingredientsTypeData;
             _displayHelper = displayHelper;
+            _ingredientNameData = ingredientNameData;
         }
         
         [HttpGet]
@@ -34,8 +37,34 @@ namespace ICDataManager.Controllers
             var ingredientsList = await _ingredientData.GetAll();
             var typesList = await _ingredientsTypeData.GetAll();
 
-            List<DisplayIngredientModel> detailedIngredientsList = await _displayHelper.GetIngrediensListForDisplay(ingredientsList, typesList);
-            return View(ingredientsList);
+            List<ManageIngredientModel> detailedIngredientsList = new List<ManageIngredientModel>();
+            foreach (var ingredient in ingredientsList)
+            {
+                ManageIngredientModel manageIngredient = new ManageIngredientModel
+                {
+                    Id = ingredient.Id,
+                    MainNameId = ingredient.MainNameId,
+                    Details = ingredient.Details,
+                    IngredientTypeId = ingredient.IngredientTypeId,
+                    IsItCG = ingredient.IsItCG
+                };
+
+                var mainNameDetails = await _ingredientNameData.GetById(ingredient.MainNameId);
+                manageIngredient.MainName = mainNameDetails.Name;
+
+                if (ingredient.IngredientTypeId != 0)
+                {
+                    var type = typesList.Where(type => type.Id == ingredient.IngredientTypeId).FirstOrDefault();
+                    if (type == null)
+                    {
+                        continue;
+                    }
+                    manageIngredient.IngredientType = type.Name;
+                }
+
+                detailedIngredientsList.Add(manageIngredient);
+            }
+            return View(detailedIngredientsList);
         }
     }
 }
