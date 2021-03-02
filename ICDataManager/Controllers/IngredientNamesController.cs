@@ -1,4 +1,5 @@
 ﻿using ICDataManager.Library.Data;
+using ICDataManager.Library.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,6 +23,10 @@ namespace ICDataManager.Controllers
         public async Task<IActionResult> Index()
         {
             var names = await _ingredientNameData.GetAll();
+            names.Sort(delegate (DBIngredientNameModel x, DBIngredientNameModel y)
+            {
+                return x.IngredientId.CompareTo(y.IngredientId);
+            });
             return View(names);
         }
     }
