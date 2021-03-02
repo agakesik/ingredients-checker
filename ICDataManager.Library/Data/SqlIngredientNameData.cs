@@ -19,6 +19,14 @@ namespace ICDataManager.Library.Data
             _dataAccess = dataAccess;
         }
 
+        public Task<List<DBIngredientNameModel>> GetAll()
+        {
+            var ingredientNamesList = _dataAccess.LoadData<DBIngredientNameModel, dynamic>("spIngredientName_GetAll", new { }, "ICData");
+
+            return ingredientNamesList;
+
+        }
+
         public async Task<DBIngredientNameModel> GetById(int id)
         {
             var ingredientName = await _dataAccess.LoadData<DBIngredientNameModel, dynamic>("spIngredientName_GetById", new { Id = id }, "ICData");
