@@ -72,10 +72,10 @@
     <Build Include="dbo\Stored Procedures\spIngredientName_GetByName.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_AddName.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredientName_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ICData.publish.xml" />
-    <None Include="PublishLocations\ICDatabase.publish.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ICData.refactorlog" />

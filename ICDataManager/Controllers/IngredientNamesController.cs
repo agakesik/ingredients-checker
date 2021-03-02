@@ -20,6 +20,7 @@ namespace ICDataManager.Controllers
             _ingredientNameData = ingredientNameData;
         }
         
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var names = await _ingredientNameData.GetAll();
@@ -28,6 +29,14 @@ namespace ICDataManager.Controllers
                 return x.IngredientId.CompareTo(y.IngredientId);
             });
             return View(names);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _ingredientNameData.DeleteName(id);
+
+            return RedirectToAction("Index");
         }
     }
 }

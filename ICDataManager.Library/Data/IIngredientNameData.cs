@@ -6,6 +6,7 @@ namespace ICDataManager.Library.Data
 {
     public interface IIngredientNameData
     {
+        Task<int> DeleteName(int id);
         Task<List<DBIngredientNameModel>> GetAll();
         Task<DBIngredientNameModel> GetById(int id);
         Task<DBIngredientNameModel> GetByName(string name);
