@@ -1,4 +1,4 @@
-﻿@model ICDataManager.Library.Models.ManageIngredientModel
+﻿@model ICDataManager.Models.IngredientEditModel
 
 @{
     ViewData["Title"] = "Details";
@@ -15,46 +15,34 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.Ingredient.Id)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+            @Html.DisplayFor(model => model.Ingredient.Id)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MainNameId)
+            @Html.DisplayNameFor(model => model.Ingredient.MainName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MainNameId)
+            @Html.DisplayFor(model => model.Ingredient.MainName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MainName)
+            @Html.DisplayNameFor(model => model.Ingredient.Details)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MainName)
+            @Html.DisplayFor(model => model.Ingredient.Details)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Details)
+            @Html.DisplayNameFor(model => model.Ingredient.IngredientType)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Details)
+            @Html.DisplayFor(model => model.Ingredient.IngredientType)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IngredientTypeId)
+            @Html.DisplayNameFor(model => model.Ingredient.IsItCG)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IngredientTypeId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IngredientType)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IngredientType)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsItCG)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsItCG)
+            @Html.DisplayFor(model => model.Ingredient.IsItCG)
         </dd>
     </dl>
 </div>
@@ -67,25 +55,29 @@
     <div class="col-md-4">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="Id" class="form-control" type="hidden" />
+            <input asp-for="Ingredient.Id" class="form-control" type="hidden" />
             <div class="form-group">
-                <label asp-for="MainNameId" class="control-label"></label>
-                <input asp-for="MainNameId" class="form-control" />
-                <span asp-validation-for="MainNameId" class="text-danger"></span>
+                <label asp-for="Ingredient.MainNameId" class="control-label"></label>
+                <Select asp-for="Ingredient.MainNameId" asp-items="Model.IngredientNames" class="form-control" >
+                    <option value="0">--- Select Main Name ---</option>
+                </Select>
+                <span asp-validation-for="Ingredient.MainNameId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Details" class="control-label"></label>
-                <input asp-for="Details" class="form-control" />
-                <span asp-validation-for="Details" class="text-danger"></span>
+                <label asp-for="Ingredient.Details" class="control-label"></label>
+                <input asp-for="Ingredient.Details" class="form-control" />
+                <span asp-validation-for="Ingredient.Details" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IngredientTypeId" class="control-label"></label>
-                <input asp-for="IngredientTypeId" class="form-control" />
-                <span asp-validation-for="IngredientTypeId" class="text-danger"></span>
+                <label asp-for="Ingredient.IngredientTypeId" class="control-label"></label>
+                <select asp-for="Ingredient.IngredientTypeId" asp-items="Model.IngredientTypes" class="form-control">
+                    <option value="0">--- Select Type ---</option>
+                </select>
+                <span asp-validation-for="Ingredient.IngredientTypeId" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsItCG" /> @Html.DisplayNameFor(model => model.IsItCG)
+                    <input class="form-check-input" asp-for="Ingredient.IsItCG" /> @Html.DisplayNameFor(model => model.Ingredient.IsItCG)
                 </label>
             </div>
             <div class="form-group">

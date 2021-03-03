@@ -1,8 +1,10 @@
 ﻿using ICDataManager.Library.Data;
 using ICDataManager.Library.Helpers;
 using ICDataManager.Library.Models;
+using ICDataManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,16 +52,36 @@ namespace ICDataManager.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var dbIngredient = await _ingredientData.GetById(id);
-            var ingredient = await MapDbIngredientModelToManageIngredientModel(dbIngredient);
-            return View(ingredient);
+            
+
+            var model = new IngredientEditModel();
+            model.Ingredient = await MapDbIngredientModelToManageIngredientModel(dbIngredient);
+
+            var ingredientTypes = await _ingredientsTypeData.GetAll();
+            foreach (var type in ingredientTypes)
+            {
+                model.IngredientTypes.Add(new SelectListItem { Value = type.Id.ToString(), Text = type.Name });
+            }
+
+            // TO DO: zamienić na .GetByIngredient
+            var names = await _ingredientNameData.GetAll();
+            foreach (var name in names)
+            {
+                if (name.IngredientId == model.Ingredient.Id)
+                {
+                    model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
+                }
+            }
+
+            return View(model);
         }
 
         [HttpPost("update")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ManageIngredientModel editedInformation)
+        public async Task<IActionResult> Update(IngredientEditModel editedInformation)
         {
-            await _ingredientData.Update(editedInformation);
-            return RedirectToAction("Details", new { editedInformation.Id });
+            await _ingredientData.Update(editedInformation.Ingredient);
+            return RedirectToAction("Details", new { editedInformation.Ingredient.Id });
         }
 
         [HttpPost("delete")]

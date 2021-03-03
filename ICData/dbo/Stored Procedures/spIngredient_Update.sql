@@ -9,6 +9,6 @@ begin
 	set nocount on;
 
 	update dbo.Ingredient
-	set  @MainNameId = @MainNameId, Details = @Details, IngredientTypeId = @IngredientTypeId, IsItCg = @IsItCG
+	set  MainNameId = @MainNameId, Details = @Details, IngredientTypeId = @IngredientTypeId, IsItCg = @IsItCG
 	where Id = @Id;
 end
