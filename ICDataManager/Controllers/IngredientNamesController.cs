@@ -57,6 +57,29 @@ namespace ICDataManager.Controllers
             return View(namesForDisplay);
         }
 
+        [HttpGet("create")]
+        public async Task<IActionResult> Create(int id)
+        {
+            var ingredients = await _ingredientData.GetAll();
+            IngredientNameCreateModel model = new IngredientNameCreateModel();
+
+            foreach (var ingredient in ingredients)
+            {
+                var ingredientMainName = await _ingredientNameData.GetById(ingredient.MainNameId);
+                model.Ingredients.Add(new SelectListItem { Value = ingredient.Id.ToString(), Text = ingredientMainName.Name });
+            }
+
+            return View(model);
+        }
+
+        [HttpPost("create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(IngredientNameCreateModel createModel)
+        {
+            int newIngredientNameId = await _ingredientNameData.Create(createModel.IngredientName);
+            return RedirectToAction("Details", new { id = newIngredientNameId });
+        }
+
         [HttpGet("details")]
         public async Task<IActionResult> Details(int id)
         {
@@ -93,7 +116,7 @@ namespace ICDataManager.Controllers
         public async Task<IActionResult> Update(IngredientNameEditModel editModel)
         {
             await _ingredientNameData.Update(editModel.IngredientName);
-            return RedirectToAction("Details", new { editModel.IngredientName.Id });
+            return RedirectToAction("Details", new { id = editModel.IngredientName.Id });
         }
 
         [HttpPost]

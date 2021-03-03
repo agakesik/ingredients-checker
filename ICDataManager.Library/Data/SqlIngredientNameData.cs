@@ -59,6 +59,21 @@ namespace ICDataManager.Library.Data
             return nameObject.Get<int>("Id");
         }
 
+        public async Task<int> Create(DBIngredientNameModel nameModel)
+        {
+            DynamicParameters nameObject = new DynamicParameters();
+            nameObject.Add("Name", nameModel.Name);
+            if (nameModel.IngredientId > 0)
+            {
+                nameObject.Add("IngredientId", nameModel.IngredientId);
+            }
+            nameObject.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dataAccess.SaveData("spIngredientName_Create", nameObject, "ICData");
+
+            return nameObject.Get<int>("Id");
+        }
+
         public async Task<int> Update(ManageIngredientNamesModel editedInformation)
         {
 
