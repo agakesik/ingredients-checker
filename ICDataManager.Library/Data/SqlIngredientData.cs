@@ -1,4 +1,5 @@
-﻿using ICDataManager.Library.DataAccess;
+﻿using Dapper;
+using ICDataManager.Library.DataAccess;
 using ICDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,22 @@ namespace ICDataManager.Library.Data
             var ingredient = await _dataAccess.LoadData<DBIngredientModel, dynamic>("spIngredient_GetById", new { Id = id }, "ICData");
 
             return ingredient.FirstOrDefault();
+        }
+
+        public async Task<int> Update(ManageIngredientModel editedInformation)
+        {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("Id", editedInformation.Id);
+            p.Add("MainNameId", editedInformation.MainNameId);
+            p.Add("Details", editedInformation.Details);
+            p.Add("IsItCG", editedInformation.IsItCG);
+            
+            if (editedInformation.IngredientTypeId > 0)
+            {
+                p.Add("IngredientTypeId", editedInformation.IngredientTypeId);
+            }
+
+            return await _dataAccess.SaveData("spIngredient_Update", p, "ICData");
         }
 
         public async Task<int> DeleteIngredient(int id)

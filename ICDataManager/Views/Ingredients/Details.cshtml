@@ -1,0 +1,96 @@
+﻿@model ICDataManager.Library.Models.ManageIngredientModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="h3">
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+<h1>Details</h1>
+
+<div>
+    <h4>ManageIngredientModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MainNameId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MainNameId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MainName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MainName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IngredientTypeId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IngredientTypeId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IngredientType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IngredientType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsItCG)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsItCG)
+        </dd>
+    </dl>
+</div>
+
+<h1>Edit</h1>
+
+<h4>DBIngredientModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" class="form-control" type="hidden" />
+            <div class="form-group">
+                <label asp-for="MainNameId" class="control-label"></label>
+                <input asp-for="MainNameId" class="form-control" />
+                <span asp-validation-for="MainNameId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Details" class="control-label"></label>
+                <input asp-for="Details" class="form-control" />
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientTypeId" class="control-label"></label>
+                <input asp-for="IngredientTypeId" class="form-control" />
+                <span asp-validation-for="IngredientTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsItCG" /> @Html.DisplayNameFor(model => model.IsItCG)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

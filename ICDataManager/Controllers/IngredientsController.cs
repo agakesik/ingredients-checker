@@ -35,36 +35,31 @@ namespace ICDataManager.Controllers
         {
 
             var ingredientsList = await _ingredientData.GetAll();
-            var typesList = await _ingredientsTypeData.GetAll();
 
             List<ManageIngredientModel> detailedIngredientsList = new List<ManageIngredientModel>();
             foreach (var ingredient in ingredientsList)
             {
-                ManageIngredientModel manageIngredient = new ManageIngredientModel
-                {
-                    Id = ingredient.Id,
-                    MainNameId = ingredient.MainNameId,
-                    Details = ingredient.Details,
-                    IngredientTypeId = ingredient.IngredientTypeId,
-                    IsItCG = ingredient.IsItCG
-                };
-
-                var mainNameDetails = await _ingredientNameData.GetById(ingredient.MainNameId);
-                manageIngredient.MainName = mainNameDetails.Name;
-
-                if (ingredient.IngredientTypeId != 0)
-                {
-                    var type = typesList.Where(type => type.Id == ingredient.IngredientTypeId).FirstOrDefault();
-                    if (type == null)
-                    {
-                        continue;
-                    }
-                    manageIngredient.IngredientType = type.Name;
-                }
+                ManageIngredientModel manageIngredient = await MapDbIngredientModelToManageIngredientModel(ingredient);
 
                 detailedIngredientsList.Add(manageIngredient);
             }
             return View(detailedIngredientsList);
+        }
+
+        [HttpGet("details")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var dbIngredient = await _ingredientData.GetById(id);
+            var ingredient = await MapDbIngredientModelToManageIngredientModel(dbIngredient);
+            return View(ingredient);
+        }
+
+        [HttpPost("update")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(ManageIngredientModel editedInformation)
+        {
+            await _ingredientData.Update(editedInformation);
+            return RedirectToAction("Details", new { editedInformation.Id });
         }
 
         [HttpPost("delete")]
@@ -74,6 +69,35 @@ namespace ICDataManager.Controllers
             await _ingredientData.DeleteIngredient(id);
 
             return RedirectToAction("Index");
+        }
+
+        private async Task<ManageIngredientModel> MapDbIngredientModelToManageIngredientModel(DBIngredientModel ingredient)
+        {
+            var typesList = await _ingredientsTypeData.GetAll();
+
+            ManageIngredientModel manageIngredient = new ManageIngredientModel
+            {
+                Id = ingredient.Id,
+                MainNameId = ingredient.MainNameId,
+                Details = ingredient.Details,
+                IngredientTypeId = ingredient.IngredientTypeId,
+                IsItCG = ingredient.IsItCG
+            };
+
+            var mainNameDetails = await _ingredientNameData.GetById(ingredient.MainNameId);
+            manageIngredient.MainName = mainNameDetails.Name;
+
+            if (ingredient.IngredientTypeId != 0)
+            {
+                var type = typesList.Where(type => type.Id == ingredient.IngredientTypeId).FirstOrDefault();
+                if (type != null)
+                {
+                    manageIngredient.IngredientType = type.Name;
+                }
+                
+            }
+
+            return manageIngredient;
         }
     }
 }
