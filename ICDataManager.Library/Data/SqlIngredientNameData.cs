@@ -41,6 +41,13 @@ namespace ICDataManager.Library.Data
             return ingredientName.FirstOrDefault();
         }
 
+        public async Task<List<DBIngredientNameModel>> GetByIngredient(int ingredientId)
+        {
+            var ingredientNamesList = await _dataAccess.LoadData<DBIngredientNameModel, dynamic>("spIngredientName_GetByIngredient", new { IngredientId = ingredientId }, "ICData");
+
+            return ingredientNamesList;
+        }
+
         public async Task<int> SaveName(string name)
         {
             DynamicParameters nameObject = new DynamicParameters();

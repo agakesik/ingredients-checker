@@ -63,14 +63,10 @@ namespace ICDataManager.Controllers
                 model.IngredientTypes.Add(new SelectListItem { Value = type.Id.ToString(), Text = type.Name });
             }
 
-            // TO DO: zamienić na .GetByIngredient
-            var names = await _ingredientNameData.GetAll();
+            var names = await _ingredientNameData.GetByIngredient(model.Ingredient.Id);
             foreach (var name in names)
             {
-                if (name.IngredientId == model.Ingredient.Id)
-                {
-                    model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
-                }
+                model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
             }
 
             return View(model);
