@@ -63,7 +63,7 @@ namespace ICDataManager.Controllers.API
                 if (ingredientName == null)
                 {
                     notFoundNames.Add(name);
-                    await _ingredientNameData.SaveName(name);
+                    await _ingredientNameData.Create(name);
                     continue;
                 }
                 else if (ingredientName.IngredientId == 0)

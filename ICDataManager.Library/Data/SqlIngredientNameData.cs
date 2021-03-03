@@ -48,13 +48,13 @@ namespace ICDataManager.Library.Data
             return ingredientNamesList;
         }
 
-        public async Task<int> SaveName(string name)
+        public async Task<int> Create(string name)
         {
             DynamicParameters nameObject = new DynamicParameters();
             nameObject.Add("Name", name);
             nameObject.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
 
-            await _dataAccess.SaveData("spIngredientName_AddName", nameObject, "ICData");
+            await _dataAccess.SaveData("spIngredientName_Create", nameObject, "ICData");
 
             return nameObject.Get<int>("Id");
         }

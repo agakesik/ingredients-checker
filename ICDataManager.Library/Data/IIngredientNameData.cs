@@ -11,7 +11,7 @@ namespace ICDataManager.Library.Data
         Task<DBIngredientNameModel> GetById(int id);
         Task<List<DBIngredientNameModel>> GetByIngredient(int ingredientId);
         Task<DBIngredientNameModel> GetByName(string name);
-        Task<int> SaveName(string name);
+        Task<int> Create(string name);
         Task<int> Update(ManageIngredientNamesModel editedInformation);
     }
 }
