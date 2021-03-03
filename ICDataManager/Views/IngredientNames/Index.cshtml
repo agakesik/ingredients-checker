@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ICDataManager.Library.Models.DBIngredientNameModel>
+﻿@model IEnumerable<ICDataManager.Library.Models.ManageIngredientNamesModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -36,7 +36,7 @@
                 <td>
                     @if (item.IngredientId > 0)
                     {
-                        @Html.DisplayFor(modelItem => item.IngredientId)
+                        @Html.DisplayFor(modelItem => item.IngredientMainName)
                     }
                 </td>
                 <td>

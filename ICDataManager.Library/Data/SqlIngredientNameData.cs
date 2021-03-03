@@ -52,7 +52,7 @@ namespace ICDataManager.Library.Data
             return nameObject.Get<int>("Id");
         }
 
-        public async Task<int> Update(DBIngredientNameModel editedInformation)
+        public async Task<int> Update(ManageIngredientNamesModel editedInformation)
         {
 
             DynamicParameters p = new DynamicParameters();
