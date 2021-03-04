@@ -3,6 +3,7 @@ using ICDataManager.Library.DataAccess;
 using ICDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,25 @@ namespace ICDataManager.Library.Data
             var ingredient = await _dataAccess.LoadData<DBIngredientModel, dynamic>("spIngredient_GetById", new { Id = id }, "ICData");
 
             return ingredient.FirstOrDefault();
+        }
+
+        public async Task<int> Create(DBIngredientModel ingredient)
+        {
+            DynamicParameters ingredientParameter = new DynamicParameters();
+            ingredientParameter.Add("MainNameId", ingredient.MainNameId);
+            ingredientParameter.Add("Details", ingredient.Details);
+            ingredientParameter.Add("IsItCG", ingredient.IsItCG);
+
+            if (ingredient.IngredientTypeId > 0)
+            {
+                ingredientParameter.Add("IngredientTypeId", ingredient.IngredientTypeId);
+            }
+
+            ingredientParameter.Add("Id", DbType.Int32, direction: ParameterDirection.Output);
+
+            await _dataAccess.SaveData("spIngredient_Create", ingredientParameter, "ICData");
+
+            return ingredientParameter.Get<int>("Id");
         }
 
         public async Task<int> Update(ManageIngredientModel editedInformation)

@@ -48,6 +48,44 @@ namespace ICDataManager.Controllers
             return View(detailedIngredientsList);
         }
 
+        [HttpGet("create")]
+        public async Task<IActionResult> Create()
+        {
+            var model = new IngredientCreateModel();
+
+            var ingredientTypes = await _ingredientsTypeData.GetAll();
+            foreach (var type in ingredientTypes)
+            {
+                model.IngredientTypes.Add(new SelectListItem { Value = type.Id.ToString(), Text = type.Name });
+            }
+
+            // TO DO: przy tworzeniu nowego powinno pozwolić wybrać tylko z nieprzypisanych
+            var names = await _ingredientNameData.GetAll();
+            foreach (var name in names)
+            {
+                model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
+            }
+
+            return View(model);
+        }
+
+        [HttpPost("create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(IngredientCreateModel createModel)
+        {
+            // TO DO: create validation in Models
+            if (createModel.Ingredient.MainNameId == 0)
+            {
+                Console.WriteLine("you have to specify main name");
+                return RedirectToAction("create");
+            }
+
+            int newIngredientId = await _ingredientData.Create(createModel.Ingredient);
+            // TO DO: update IngredientName - add IgredientId when assigned
+
+            return RedirectToAction("Details", new { id = newIngredientId });
+        }
+
         [HttpGet("details")]
         public async Task<IActionResult> Details(int id)
         {
@@ -85,6 +123,7 @@ namespace ICDataManager.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _ingredientData.DeleteIngredient(id);
+            // TO DO: update associated IngredientName to have null IngredientID 
 
             return RedirectToAction("Index");
         }
