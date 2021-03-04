@@ -4,6 +4,7 @@ using ICDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,13 @@ namespace ICDataManager.Library.Data
             var ingredientTypesList = _dataAccess.LoadData<DBIngredientTypeModel, dynamic>("spIngredientType_GetAll", new { }, "ICData");
 
             return ingredientTypesList;
+        }
+
+        public async Task<DBIngredientTypeModel> GetById(int id)
+        {
+            var type =  await _dataAccess.LoadData<DBIngredientTypeModel, dynamic>("spIngredientType_GetById", new { Id = id }, "ICData");
+
+            return type.FirstOrDefault();
         }
 
         public async Task<int> Create(DBIngredientTypeModel ingredientType)

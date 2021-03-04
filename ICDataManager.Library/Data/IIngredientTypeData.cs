@@ -10,5 +10,6 @@ namespace ICDataManager.Library.Data
         Task<int> Create(DBIngredientTypeModel ingredientType);
         Task<int> Delete(int id);
         Task<List<DBIngredientTypeModel>> GetAll();
+        Task<DBIngredientTypeModel> GetById(int id);
     }
 }

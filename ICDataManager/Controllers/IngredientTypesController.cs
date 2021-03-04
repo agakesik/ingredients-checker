@@ -34,7 +34,15 @@ namespace ICDataManager.Controllers
         {
             var model = new DBIngredientTypeModel();
 
-            return View(model);
+            return RedirectToAction("Details", new { model.Id });
+        }
+
+        [HttpGet("details")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var type = await _ingredientsTypeData.GetById(id);
+
+            return View(type);
         }
 
         [HttpPost("create")]

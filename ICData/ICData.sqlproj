@@ -66,7 +66,7 @@
     <Build Include="dbo\Tables\IngredientType.sql" />
     <Build Include="dbo\Stored Procedures\spIngredient_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientType_GetAll.sql" />
-    <Build Include="dbo\Stored Procedures\spIngredient_GetByName.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredient_GetById.sql" />
     <Build Include="dbo\Tables\IngredientName.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_GetById.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_GetByName.sql" />
@@ -81,6 +81,7 @@
     <Build Include="dbo\Stored Procedures\spIngredientName_UpdateIngredientId.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientType_Delete.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientType_Create.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredientType_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ICData.publish.xml" />
