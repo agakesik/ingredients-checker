@@ -64,6 +64,8 @@ namespace ICDataManager.Controllers
             foreach (var name in names)
             {
                 model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
+                model.SelectedNames.Add(name.Name, false);
+                System.Diagnostics.Debug.WriteLine (model.SelectedNames[name.Name]);
             }
 
             return View(model);
@@ -83,6 +85,14 @@ namespace ICDataManager.Controllers
             int newIngredientId = await _ingredientData.Create(createModel.Ingredient);
             // TO DO: update IngredientName - add IgredientId when assigned
             await _ingredientNameData.UpdateIngredientId(createModel.Ingredient.MainNameId, newIngredientId);
+            foreach (var name in createModel.SelectedNames)
+            {
+                if (name.Value == true)
+                {
+                    var nameInformation = await _ingredientNameData.GetByName(name.Key);
+                    await _ingredientNameData.UpdateIngredientId(nameInformation.Id, newIngredientId);
+                }
+            }
 
             return RedirectToAction("Details", new { id = newIngredientId });
         }

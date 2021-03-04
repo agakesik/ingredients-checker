@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Ingredient.MainNameId" class="control-label"></label>
-                <select asp-for="Ingredient.MainNameId" asp-items="Model.IngredientNames" class="form-control" >
+                <select asp-for="Ingredient.MainNameId" asp-items="Model.IngredientNames" class="form-control">
                     <option value="0">--- Select Main Name ---</option>
                 </select>
                 <span asp-validation-for="Ingredient.MainNameId" class="text-danger"></span>
@@ -26,10 +26,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="Ingredient.IngredientTypeId" class="control-label"></label>
-                <select asp-for="Ingredient.IngredientTypeId" asp-items="Model.IngredientTypes" class="form-control" >
+                <select asp-for="Ingredient.IngredientTypeId" asp-items="Model.IngredientTypes" class="form-control">
                     <option value="0">--- Select Type ---</option>
                 </select>
                 <span asp-validation-for="Ingredient.IngredientTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedNames" class="control-label">Additional names:</label>
+                @foreach (var name in Model.SelectedNames)
+                {
+                    <div>
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="SelectedNames[name.Key]" />
+                            @Html.DisplayName(name.Key)
+                        </label>
+                    </div>
+                }
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -46,4 +58,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

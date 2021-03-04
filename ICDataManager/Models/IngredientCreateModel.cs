@@ -10,6 +10,7 @@ namespace ICDataManager.Models
     public class IngredientCreateModel
     {
         public DBIngredientModel Ingredient { get; set; }
+        public Dictionary<string, bool> SelectedNames { get; set; } = new Dictionary<string, bool>();
         public List<SelectListItem> IngredientTypes { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> IngredientNames { get; set; } = new List<SelectListItem>();
     }
