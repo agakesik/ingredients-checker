@@ -33,6 +33,13 @@ namespace ICDataManager.Library.Data
             return ingredient.FirstOrDefault();
         }
 
+        public async Task<List<DBIngredientModel>> GetByType(int ingredientTypeId)
+        {
+            var ingredientsList = await _dataAccess.LoadData<DBIngredientModel, dynamic>("spIngredient_GetByType", new { IngredientTypeId = ingredientTypeId }, "ICData");
+
+            return ingredientsList;
+        }
+
         public async Task<int> Create(DBIngredientModel ingredient)
         {
             DynamicParameters ingredientParameter = new DynamicParameters();
@@ -66,6 +73,11 @@ namespace ICDataManager.Library.Data
             }
 
             return await _dataAccess.SaveData("spIngredient_Update", p, "ICData");
+        }
+
+        public async Task<int> UpdateTypeId(int id)
+        {
+            return await _dataAccess.SaveData("spIngredient_UpdateTypeId", new { Id = id }, "ICData");
         }
 
         public async Task<int> DeleteIngredient(int id)

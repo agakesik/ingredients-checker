@@ -14,10 +14,12 @@ namespace ICDataManager.Controllers
     public class IngredientTypesController : Controller
     {
         private readonly IIngredientTypeData _ingredientsTypeData;
+        private readonly IIngredientData _ingredientData;
 
-        public IngredientTypesController(IIngredientTypeData ingredientsTypeData)
+        public IngredientTypesController(IIngredientTypeData ingredientsTypeData, IIngredientData ingredientData)
         {
             _ingredientsTypeData = ingredientsTypeData;
+            _ingredientData = ingredientData;
         }
 
         [HttpGet]
@@ -68,7 +70,12 @@ namespace ICDataManager.Controllers
         public async Task<IActionResult> Delete(int id)
         {
 
-            // TO DO: change ingredientTypesId in Ingredients to null
+            var ingredients = await _ingredientData.GetByType(id);
+            foreach (var ingredient in ingredients)
+            {
+                await _ingredientData.UpdateTypeId(ingredient.Id);
+            }
+
             await _ingredientsTypeData.Delete(id);
 
             return RedirectToAction("Index");
