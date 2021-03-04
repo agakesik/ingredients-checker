@@ -15,108 +15,108 @@ namespace ICDataManager.Library.Test.Helpers
         DisplayHelper _ingredientHelper;
         List<DBIngredientTypeModel> _ingredientTypes;
 
-        public DisplayHelperTest()
-        {
-            _ingredientHelper = new DisplayHelper();
-            _ingredientTypes = new List<DBIngredientTypeModel>
-            {
-                new DBIngredientTypeModel
-                {
-                    Id = 1,
-                    Name = "first",
-                    Details = "first type detils",
-                    Color = "color1"
-                },
-                new DBIngredientTypeModel
-                {
-                    Id = 2,
-                    Name = "second",
-                    Details = "second type detils",
-                    Color = "color2"
-                }
-            };
-        }
+        //public DisplayHelperTest()
+        //{
+        //    _ingredientHelper = new DisplayHelper();
+        //    _ingredientTypes = new List<DBIngredientTypeModel>
+        //    {
+        //        new DBIngredientTypeModel
+        //        {
+        //            Id = 1,
+        //            Name = "first",
+        //            Details = "first type detils",
+        //            Color = "color1"
+        //        },
+        //        new DBIngredientTypeModel
+        //        {
+        //            Id = 2,
+        //            Name = "second",
+        //            Details = "second type detils",
+        //            Color = "color2"
+        //        }
+        //    };
+        //}
 
-        public static IEnumerable<object[]> GetIngrediensListForDisplayData
-        {
-            get
-            {
-                return new[]
-            {
-                new object[] 
-                { 
-                    new DBIngredientModel
-                    {
-                        Id = 0,
-                        Name = "name",
-                        Details = "details",
-                        IngredientTypeId = 1,
-                        IsItCG = true
-                    },
-                    new DisplayIngredientModel()
-                    {
-                        Name = "name",
-                        Details = "details",
-                        IngredientType = new DisplayIngredientTypeModel
-                        {
-                            Id = 1,
-                            Name = "first",
-                            Details = "first type detils",
-                            Color = "color1"
-                        },
-                        IsItCG = true
+        //public static IEnumerable<object[]> GetIngrediensListForDisplayData
+        //{
+        //    get
+        //    {
+        //        return new[]
+        //    {
+        //        new object[] 
+        //        { 
+        //            new DBIngredientModel
+        //            {
+        //                Id = 0,
+        //                Name = "name",
+        //                Details = "details",
+        //                IngredientTypeId = 1,
+        //                IsItCG = true
+        //            },
+        //            new DisplayIngredientModel()
+        //            {
+        //                Name = "name",
+        //                Details = "details",
+        //                IngredientType = new DisplayIngredientTypeModel
+        //                {
+        //                    Id = 1,
+        //                    Name = "first",
+        //                    Details = "first type detils",
+        //                    Color = "color1"
+        //                },
+        //                IsItCG = true
 
-                    }
-                },
-                new object[]
-                {
-                    new DBIngredientModel
-                    {
-                        Id = 0,
-                        Name = "name",
-                        Details = "details",
-                        IngredientTypeId = 0,
-                        IsItCG = true
-                    },
-                    new DisplayIngredientModel()
-                    {
-                        Name = "name",
-                        Details = "details",
-                        IngredientType = new DisplayIngredientTypeModel
-                        {
-                            Id = 0
-                        },
-                        IsItCG = true
+        //            }
+        //        },
+        //        new object[]
+        //        {
+        //            new DBIngredientModel
+        //            {
+        //                Id = 0,
+        //                Name = "name",
+        //                Details = "details",
+        //                IngredientTypeId = 0,
+        //                IsItCG = true
+        //            },
+        //            new DisplayIngredientModel()
+        //            {
+        //                Name = "name",
+        //                Details = "details",
+        //                IngredientType = new DisplayIngredientTypeModel
+        //                {
+        //                    Id = 0
+        //                },
+        //                IsItCG = true
 
-                    }
-                }
-                //new object[] { "is fun", 2 },
-                //new object[] { "to test with", 3 }
-            };
-            }
-        }
-
-
-        [Theory]
-        [MemberData(nameof(GetIngrediensListForDisplayData))]
-        public void GetIngrediensListForDisplay_ShouldTakeDBIngredientModelAndReturnDisplayIngredientModel(DBIngredientModel inputIngredient,
-                                                                                                           DisplayIngredientModel expectedIngredient)
-        {
-            var inputIngredientsList = new List<DBIngredientModel>()
-            {
-                inputIngredient
-            };
-
-            var expectedDisplayIngredientList = new List<DisplayIngredientModel>()
-            {
-                expectedIngredient
-            }.ToExpectedObject();
+        //            }
+        //        }
+        //        //new object[] { "is fun", 2 },
+        //        //new object[] { "to test with", 3 }
+        //    };
+        //    }
+        //}
 
 
-            var actualIngredientList = _ingredientHelper.GetIngrediensListForDisplay(inputIngredientsList, _ingredientTypes);
+        //[Theory]
+        //[MemberData(nameof(GetIngrediensListForDisplayData))]
+        //public void GetIngrediensListForDisplay_ShouldTakeDBIngredientModelAndReturnDisplayIngredientModel(DBIngredientModel inputIngredient,
+        //                                                                                                   DisplayIngredientModel expectedIngredient)
+        //{
+        //    var inputIngredientsList = new List<DBIngredientModel>()
+        //    {
+        //        inputIngredient
+        //    };
 
-            expectedDisplayIngredientList.ShouldEqual(actualIngredientList);
-        }
+        //    var expectedDisplayIngredientList = new List<DisplayIngredientModel>()
+        //    {
+        //        expectedIngredient
+        //    }.ToExpectedObject();
+
+
+        //    var actualIngredientList = _ingredientHelper.GetIngrediensListForDisplay(inputIngredientsList, _ingredientTypes);
+
+        //    expectedDisplayIngredientList.ShouldEqual(actualIngredientList);
+        //}
 
     }
 }

@@ -11,6 +11,8 @@ namespace ICDataManager.Library.Data
         Task<int> DeleteIngredient(int id);
         Task<List<DBIngredientModel>> GetAll();
         Task<DBIngredientModel> GetById(int id);
+        Task<List<DBIngredientModel>> GetByType(int ingredientTypeId);
         Task<int> Update(ManageIngredientModel editedInformation);
+        Task<int> UpdateTypeId(int id);
     }
 }
