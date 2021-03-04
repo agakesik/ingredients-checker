@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ICDataManager.Library.Models.ManageIngredientModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IngredientType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsItCG)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IngredientType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsItCG)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                <form asp-action="Delete">
+                    <input name="id" value="@item.Id" type="hidden" />
+                    <input type="submit" value="delete" class="btn btn-danger" onclick="return confirm('Delete \'@item.MainName\'?')" />
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

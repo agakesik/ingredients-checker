@@ -1,7 +1,6 @@
 ﻿using ICDataManager.Library.Data;
-using ICDataManager.Library.DataAccess;
 using ICDataManager.Library.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,25 +9,76 @@ using System.Threading.Tasks;
 
 namespace ICDataManager.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class IngredientTypesController : ControllerBase
+    [Authorize(Roles = "Admin")]
+    [Route("Admin/[controller]")]
+    public class IngredientTypesController : Controller
     {
-        private readonly IDataAccess _dataAccess;
-        private readonly IIngredientTypeData _ingredientTypeData;
+        private readonly IIngredientTypeData _ingredientsTypeData;
+        private readonly IIngredientData _ingredientData;
 
-        public IngredientTypesController(IDataAccess dataAccess, IIngredientTypeData ingredientTypeData)
+        public IngredientTypesController(IIngredientTypeData ingredientsTypeData, IIngredientData ingredientData)
         {
-            _dataAccess = dataAccess;
-            _ingredientTypeData = ingredientTypeData;
+            _ingredientsTypeData = ingredientsTypeData;
+            _ingredientData = ingredientData;
         }
 
         [HttpGet]
-        public async Task<List<DBIngredientTypeModel>> Get()
+        public async Task<IActionResult> Index()
         {
-            var typesList = await _ingredientTypeData.GetAll();
 
-            return typesList;
+            var typesList = await _ingredientsTypeData.GetAll();
+
+            return View(typesList);
+        }
+
+        [HttpGet("create")]
+        public IActionResult Create()
+        {
+            var model = new DBIngredientTypeModel();
+
+            return RedirectToAction("Details", new { model.Id });
+        }
+
+        [HttpGet("details")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var type = await _ingredientsTypeData.GetById(id);
+
+            return View(type);
+        }
+
+        [HttpPost("update")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(DBIngredientTypeModel type)
+        {
+            await _ingredientsTypeData.Update(type);
+            return RedirectToAction("Details", new { type.Id });
+        }
+
+        [HttpPost("create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(DBIngredientTypeModel ingredientType)
+        {
+            int newTypeId = await _ingredientsTypeData.Create(ingredientType);
+
+            // TO DO: redirect to display
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var ingredients = await _ingredientData.GetByType(id);
+            foreach (var ingredient in ingredients)
+            {
+                await _ingredientData.UpdateTypeId(ingredient.Id);
+            }
+
+            await _ingredientsTypeData.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
