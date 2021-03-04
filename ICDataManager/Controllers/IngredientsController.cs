@@ -82,7 +82,7 @@ namespace ICDataManager.Controllers
 
             int newIngredientId = await _ingredientData.Create(createModel.Ingredient);
             // TO DO: update IngredientName - add IgredientId when assigned
-            //await _ingredientNameData.UpdateIngredientId(newIngredientId);
+            await _ingredientNameData.UpdateIngredientId(createModel.Ingredient.MainNameId, newIngredientId);
 
             return RedirectToAction("Details", new { id = newIngredientId });
         }

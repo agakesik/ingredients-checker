@@ -15,5 +15,6 @@ namespace ICDataManager.Library.Data
         Task<int> Create(DBIngredientNameModel nameModel);
         Task<int> Update(ManageIngredientNamesModel editedInformation);
         Task<int> UpdateIngredientId(int id);
+        Task<int> UpdateIngredientId(int id, int ingredientId);
     }
 }
