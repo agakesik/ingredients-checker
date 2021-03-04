@@ -32,7 +32,7 @@ namespace ICDataManager.Controllers
         }
 
         [HttpGet("create")]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var model = new DBIngredientTypeModel();
 
