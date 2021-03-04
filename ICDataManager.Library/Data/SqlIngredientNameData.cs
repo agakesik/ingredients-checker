@@ -88,6 +88,11 @@ namespace ICDataManager.Library.Data
             return await _dataAccess.SaveData("spIngredientName_Update", p, "ICData");
         }
 
+        public async Task<int> UpdateIngredientId(int id)
+        {
+            return await _dataAccess.SaveData("spIngredientName_UpdateIngredientId", new { Id = id }, "ICData");
+        }
+
         public async Task<int> DeleteName(int id)
         {
             return await _dataAccess.SaveData("spIngredientName_Delete", new { Id = id }, "ICData");

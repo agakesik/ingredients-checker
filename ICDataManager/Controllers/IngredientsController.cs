@@ -82,6 +82,7 @@ namespace ICDataManager.Controllers
 
             int newIngredientId = await _ingredientData.Create(createModel.Ingredient);
             // TO DO: update IngredientName - add IgredientId when assigned
+            //await _ingredientNameData.UpdateIngredientId(newIngredientId);
 
             return RedirectToAction("Details", new { id = newIngredientId });
         }
@@ -122,8 +123,13 @@ namespace ICDataManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _ingredientData.DeleteIngredient(id);
             // TO DO: update associated IngredientName to have null IngredientID 
+            var ingredientNames = await _ingredientNameData.GetByIngredient(id);
+            foreach (var name in ingredientNames)
+            {
+                await _ingredientNameData.UpdateIngredientId(name.Id);
+            }
+            await _ingredientData.DeleteIngredient(id);
 
             return RedirectToAction("Index");
         }
