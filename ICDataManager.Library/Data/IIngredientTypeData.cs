@@ -7,6 +7,7 @@ namespace ICDataManager.Library.Data
 {
     public interface IIngredientTypeData
     {
+        Task<int> Delete(int id);
         Task<List<DBIngredientTypeModel>> GetAll();
     }
 }

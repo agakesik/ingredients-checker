@@ -21,5 +21,10 @@ namespace ICDataManager.Library.Data
 
             return ingredientTypesList;
         }
+
+        public async Task<int> Delete(int id)
+        {
+            return await _dataAccess.SaveData("spIngredientType_Delete", new { Id = id }, "ICData");
+        }
     }
 }

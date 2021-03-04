@@ -18,12 +18,25 @@ namespace ICDataManager.Controllers
         {
             _ingredientsTypeData = ingredientsTypeData;
         }
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
 
             var typesList = await _ingredientsTypeData.GetAll();
 
             return View(typesList);
+        }
+
+        [HttpPost("delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            // TO DO: change ingredientTypesId in Ingredients to null
+            await _ingredientsTypeData.Delete(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
