@@ -45,6 +45,17 @@ namespace ICDataManager.Library.Data
             return typeParameter.Get<int>("Id");
         }
 
+        public async Task<int> Update(DBIngredientTypeModel ingredientType)
+        {
+            DynamicParameters typeParameter = new DynamicParameters();
+            typeParameter.Add("Id", ingredientType.Id);
+            typeParameter.Add("Name", ingredientType.Name);
+            typeParameter.Add("Details", ingredientType.Details);
+            typeParameter.Add("Color", ingredientType.Color);
+
+            return await _dataAccess.SaveData("spIngredientType_Update", typeParameter, "ICData");
+        }
+
         public async Task<int> Delete(int id)
         {
             return await _dataAccess.SaveData("spIngredientType_Delete", new { Id = id }, "ICData");

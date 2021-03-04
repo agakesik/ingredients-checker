@@ -45,6 +45,14 @@ namespace ICDataManager.Controllers
             return View(type);
         }
 
+        [HttpPost("update")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(DBIngredientTypeModel type)
+        {
+            await _ingredientsTypeData.Update(type);
+            return RedirectToAction("Details", new { type.Id });
+        }
+
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DBIngredientTypeModel ingredientType)
