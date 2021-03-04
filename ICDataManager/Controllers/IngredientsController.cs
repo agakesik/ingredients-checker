@@ -59,13 +59,15 @@ namespace ICDataManager.Controllers
                 model.IngredientTypes.Add(new SelectListItem { Value = type.Id.ToString(), Text = type.Name });
             }
 
-            // TO DO: przy tworzeniu nowego powinno pozwolić wybrać tylko z nieprzypisanych
             var names = await _ingredientNameData.GetAll();
             foreach (var name in names)
             {
-                model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
-                model.SelectedNames.Add(name.Name, false);
-                System.Diagnostics.Debug.WriteLine (model.SelectedNames[name.Name]);
+                if (name.IngredientId == 0)
+                {
+                    model.IngredientNames.Add(new SelectListItem { Value = name.Id.ToString(), Text = name.Name });
+                    model.SelectedNames.Add(name.Name, false);
+                    System.Diagnostics.Debug.WriteLine (model.SelectedNames[name.Name]);
+                }
             }
 
             return View(model);
@@ -83,7 +85,7 @@ namespace ICDataManager.Controllers
             }
 
             int newIngredientId = await _ingredientData.Create(createModel.Ingredient);
-            // TO DO: update IngredientName - add IgredientId when assigned
+
             await _ingredientNameData.UpdateIngredientId(createModel.Ingredient.MainNameId, newIngredientId);
             foreach (var name in createModel.SelectedNames)
             {
@@ -133,7 +135,6 @@ namespace ICDataManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            // TO DO: update associated IngredientName to have null IngredientID 
             var ingredientNames = await _ingredientNameData.GetByIngredient(id);
             foreach (var name in ingredientNames)
             {

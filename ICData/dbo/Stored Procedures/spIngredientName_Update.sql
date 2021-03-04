@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spIngredientName_Update]
     @Id int,
     @Name nvarchar(50),
-    @IngredientId int = null
+    @IngredientId int = NULL
 AS
 begin
     
