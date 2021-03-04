@@ -80,6 +80,7 @@
     <Build Include="dbo\Stored Procedures\spIngredient_Create.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientName_UpdateIngredientId.sql" />
     <Build Include="dbo\Stored Procedures\spIngredientType_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spIngredientType_Create.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ICData.publish.xml" />

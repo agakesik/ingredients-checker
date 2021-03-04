@@ -1,4 +1,5 @@
 ﻿using ICDataManager.Library.Data;
+using ICDataManager.Library.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -26,6 +27,24 @@ namespace ICDataManager.Controllers
             var typesList = await _ingredientsTypeData.GetAll();
 
             return View(typesList);
+        }
+
+        [HttpGet("create")]
+        public async Task<IActionResult> Create()
+        {
+            var model = new DBIngredientTypeModel();
+
+            return View(model);
+        }
+
+        [HttpPost("create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(DBIngredientTypeModel ingredientType)
+        {
+            int newTypeId = await _ingredientsTypeData.Create(ingredientType);
+
+            // TO DO: redirect to display
+            return RedirectToAction("Index");
         }
 
         [HttpPost("delete")]
