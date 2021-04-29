@@ -12,8 +12,8 @@ namespace ICDataManager.Library.Test.Helpers
 {
     public class DisplayHelperTest
     {
-        DisplayHelper _ingredientHelper;
-        List<DBIngredientTypeModel> _ingredientTypes;
+        //DisplayHelper _ingredientHelper;
+        //List<DBIngredientTypeModel> _ingredientTypes;
 
         //public DisplayHelperTest()
         //{
