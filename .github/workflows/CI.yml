@@ -13,6 +13,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+
+    # Build command on .sqlproj was causing error MSB4019 
+    # "The imported project "/home/runner/.dotnet/sdk/3.1.408/Microsoft/VisualStudio/v11.0/SSDT/Microsoft.Data.Tools.Schema.SqlTasks.targets" was not found"
+    # While looking for solution I found that it's because dotnet SDK currently isn't working correctly with SQL projects
+    # The only solution I found was to temporarily exclude SQL project from build action
     - name: Exclude SQL project
       run: dotnet sln remove ICData/ICData.sqlproj
     - name: Restore dependencies
