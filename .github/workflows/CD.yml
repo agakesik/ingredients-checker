@@ -13,6 +13,15 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+
+    #substitute production appsettings entries to appsettings json file
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: './ICWebUI/wwwroot/appsetting.json'
+      env:
+        APIBaseUrl: ${{ secrets.API_BASE_URL }}
+        TEST: ${{ env.TEST }}
             
     - name: Build WebUI project with dotnet
       run: dotnet build ./ICWebUI/ICWebUI.csproj --configuration Release 

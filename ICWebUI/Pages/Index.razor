@@ -1,6 +1,8 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject Microsoft.Extensions.Configuration.IConfiguration config
 
+<h2>appsettings test: <span>@config["TEST"]</span></h2>
 <h1>Sprawdź skład!</h1>
 
 @if (!string.IsNullOrWhiteSpace(HttpErrorString))
@@ -22,7 +24,7 @@
 @if (notFoundNames != null)
 {
     <div class="alert alert-danger">
-        <h4 >Nie znaleźliśmy wszystkich nazw. Sprawdź czy są wpisane poprawnie.</h4>
+        <h4>Nie znaleźliśmy wszystkich nazw. Sprawdź czy są wpisane poprawnie.</h4>
         <small>Każdy składnik powinien być oddzielony przecinkiem i spacją na wzór: [składnik1, składnik2, składnik z paru wyrazów, składnik4]</small>
         <p>
             <strong>@notFoundNames</strong>
