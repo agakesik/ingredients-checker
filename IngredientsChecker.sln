@@ -13,13 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICDataManager.Library", "IC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICDataManager.Library.Test", "ICDataManager.Library.Test\ICDataManager.Library.Test.csproj", "{71EDF599-6F26-46AA-A959-62DE4B444B69}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{32BBC8B6-1CFA-4B4F-A022-8C9021E44587}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{E0D8E00E-78BD-40FC-95C4-E8335104A9EB}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\CI.yml = .github\workflows\CI.yml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,9 +44,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{E0D8E00E-78BD-40FC-95C4-E8335104A9EB} = {32BBC8B6-1CFA-4B4F-A022-8C9021E44587}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96343685-F19B-4A5D-993C-3BDFB0B42C93}
