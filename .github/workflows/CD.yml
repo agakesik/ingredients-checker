@@ -2,9 +2,12 @@ name: Continuous Deployment
 
 on: [push]
 
+env:
+  AZURE_WEBAPP_NAME: my-app-name    # set this to your application's name
+  DOTNET_VERSION: '3.1.x'
+
 jobs:
   deployUIProject:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -12,7 +15,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     #substitute production appsettings entries to appsettings json file
     - name: App Settings Variable Substitution
@@ -26,13 +29,33 @@ jobs:
     - name: Build WebUI project with dotnet
       run: dotnet build ./ICWebUI/ICWebUI.csproj --configuration Release 
     - name: Publish WebUI project using dotnet 
-      #create Blazor WebAssembly dist output folder in the project directory
-      run: dotnet publish ./ICWebUI/ICWebUI.csproj -c Release --no-build -o publishoutput # Don't build again, just publish
+      run: dotnet publish ./ICWebUI/ICWebUI.csproj -c Release --no-build -o publishoutputui # Don't build again, just publish
     - name: Publish generated WebUI project to Netlify
       uses: netlify/actions/cli@master #uses Netlify Cli actions
       env: # These are the environment variables added in GitHub Secrets for this repo
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       with:
-          args: deploy --dir=publishoutput/wwwroot --prod #push this folder to Netlify
+          args: deploy --dir=publishoutputui/wwwroot --prod #push this folder to Netlify
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+
+  deployAPIProject:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Build API project with dotnet
+      run: dotnet build ./ICDataManager/ICDataManager.csproj --configuration Release 
+    - name: Publish API project using dotnet 
+      run: dotnet publish ./ICDataManager/ICDataManager.csproj -c Release --no-build -o publishoutputapi # Don't build again, just publish
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ secrets.AZURE_API_NAME }} # Replace with your app name
+        publish-profile: ${{ secrets.AZURE_API_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
+        package: 'publishoutputapi'
