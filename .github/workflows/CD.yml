@@ -21,7 +21,7 @@ jobs:
         files: './ICWebUI/wwwroot/appsettings.json'
       env:
         APIBaseUrl: ${{ secrets.API_BASE_URL }}
-        TEST: ${{ env.TEST }}
+        TEST: ${{ secrets.TEST }}
             
     - name: Build WebUI project with dotnet
       run: dotnet build ./ICWebUI/ICWebUI.csproj --configuration Release 

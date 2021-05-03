@@ -1,8 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
-@inject Microsoft.Extensions.Configuration.IConfiguration config
 
-<h2>appsettings test: <span>@config["TEST"]</span></h2>
 <h1>Sprawdź skład!</h1>
 
 @if (!string.IsNullOrWhiteSpace(HttpErrorString))
