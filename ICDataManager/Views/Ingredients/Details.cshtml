@@ -1,0 +1,88 @@
+﻿@model ICDataManager.Models.IngredientEditModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="h3">
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+<h1>Details</h1>
+
+<div>
+    <h4>ManageIngredientModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredient.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ingredient.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredient.MainName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ingredient.MainName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredient.Details)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ingredient.Details)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredient.IngredientType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ingredient.IngredientType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredient.IsItCG)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ingredient.IsItCG)
+        </dd>
+    </dl>
+</div>
+
+<h1>Edit</h1>
+
+<h4>DBIngredientModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Ingredient.Id" class="form-control" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Ingredient.MainNameId" class="control-label"></label>
+                <Select asp-for="Ingredient.MainNameId" asp-items="Model.IngredientNames" class="form-control" >
+                    <option value="0">--- Select Main Name ---</option>
+                </Select>
+                <span asp-validation-for="Ingredient.MainNameId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Details" class="control-label"></label>
+                <input asp-for="Ingredient.Details" class="form-control" />
+                <span asp-validation-for="Ingredient.Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.IngredientTypeId" class="control-label"></label>
+                <select asp-for="Ingredient.IngredientTypeId" asp-items="Model.IngredientTypes" class="form-control">
+                    <option value="0">--- Select Type ---</option>
+                </select>
+                <span asp-validation-for="Ingredient.IngredientTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ingredient.IsItCG" /> @Html.DisplayNameFor(model => model.Ingredient.IsItCG)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

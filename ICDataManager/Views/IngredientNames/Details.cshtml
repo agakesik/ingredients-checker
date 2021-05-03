@@ -1,0 +1,67 @@
+﻿@model ICDataManager.Models.IngredientNameEditModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="h2">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<h1>Details</h1>
+
+<div>
+    <h4>DBIngredientNameModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IngredientName.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IngredientName.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IngredientName.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IngredientName.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Assigned to Ingredient
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IngredientName.IngredientMainName)
+
+        </dd>
+    </dl>
+</div>
+
+
+<h1>Edit</h1>
+
+<h4>DBIngredientNameModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="IngredientName.Id" class="form-control" type="hidden" />
+            
+            <div class="form-group">
+                <label asp-for="IngredientName.Name" class="control-label"></label>
+                <input asp-for="IngredientName.Name" class="form-control" />
+                <span asp-validation-for="IngredientName.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientName.IngredientId" class="control-label"></label>
+                <select asp-for="IngredientName.IngredientId" asp-items="Model.Ingredients" class="form-control" >
+                    <option value="0">--- Select existing ingredient ---</option>
+                </select>
+                <span asp-validation-for="IngredientName.IngredientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

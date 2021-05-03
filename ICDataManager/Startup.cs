@@ -1,4 +1,7 @@
 using ICDataManager.Data;
+using ICDataManager.Library.Data;
+using ICDataManager.Library.DataAccess;
+using ICDataManager.Library.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,14 +30,26 @@ namespace ICDataManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                     Configuration.GetConnectionString("ICAuthDB")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddControllers();
+
+            services.AddSingleton<IDataAccess, SqlDataAccess>();
+            services.AddSingleton<IIngredientData, SqlIngredientData>();
+            services.AddSingleton<IIngredientTypeData, SqlIngredientTypeData>();
+            services.AddSingleton<IIngredientNameData, SqlIngredientNameData>();
+            services.AddSingleton<IDisplayHelper, DisplayHelper>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +70,8 @@ namespace ICDataManager
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthentication();
             app.UseAuthorization();
