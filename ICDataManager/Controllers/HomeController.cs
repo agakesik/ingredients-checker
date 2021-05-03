@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace ICDataManager.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IConfiguration _config;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager, IConfiguration config)
         {
             _logger = logger;
             _signInManager = signInManager;
+            _config = config;
         }
 
         public IActionResult Index()
@@ -28,6 +31,8 @@ namespace ICDataManager.Controllers
             {
                 return RedirectToAction("Admin");
             }
+
+            ViewData["UIBaseUrl"] = _config.GetValue<string>("UIBaseUrl");
             return View();
         }
 

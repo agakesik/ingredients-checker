@@ -1,0 +1,63 @@
+name: Continuous Deployment
+
+on: 
+  pull_request:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: '3.1.x'
+
+jobs:
+  deployUIProject:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: './ICWebUI/wwwroot/appsettings.json'
+      env:
+        APIBaseUrl: ${{ secrets.API_BASE_URL }}
+        TEST: ${{ secrets.TEST }}
+            
+    - name: Build WebUI project with dotnet
+      run: dotnet build ./ICWebUI/ICWebUI.csproj --configuration Release 
+    - name: Publish WebUI project using dotnet 
+      run: dotnet publish ./ICWebUI/ICWebUI.csproj -c Release --no-build -o publishoutputui 
+    - name: Publish generated WebUI project to Netlify
+      uses: netlify/actions/cli@master
+      env: 
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      with:
+          args: deploy --dir=publishoutputui/wwwroot --prod #push this folder to Netlify
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+
+  deployAPIProject:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Build API project with dotnet
+      run: dotnet build ./ICDataManager/ICDataManager.csproj --configuration Release 
+    - name: Publish API project using dotnet 
+      run: dotnet publish ./ICDataManager/ICDataManager.csproj -c Release --no-build -o publishoutputapi 
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ secrets.AZURE_API_NAME }} #  app name
+        publish-profile: ${{ secrets.AZURE_API_PUBLISH_PROFILE  }} # download publish profile from azure
+        package: 'publishoutputapi'

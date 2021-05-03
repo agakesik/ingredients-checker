@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ICDataManager.Controllers
 {
     [Authorize(Roles = "Admin")]
-    [Route("Admin/[controller]")]
+    [Route("admin/[controller]")]
     public class IngredientTypesController : Controller
     {
         private readonly IIngredientTypeData _ingredientsTypeData;
@@ -36,7 +36,16 @@ namespace ICDataManager.Controllers
         {
             var model = new DBIngredientTypeModel();
 
-            return RedirectToAction("Details", new { model.Id });
+            return View(model);
+        }
+
+        [HttpPost("create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(DBIngredientTypeModel ingredientType)
+        {
+            int newTypeId = await _ingredientsTypeData.Create(ingredientType);
+
+            return RedirectToAction("Details", new { id = newTypeId });
         }
 
         [HttpGet("details")]
@@ -55,15 +64,6 @@ namespace ICDataManager.Controllers
             return RedirectToAction("Details", new { type.Id });
         }
 
-        [HttpPost("create")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DBIngredientTypeModel ingredientType)
-        {
-            int newTypeId = await _ingredientsTypeData.Create(ingredientType);
-
-            // TO DO: redirect to display
-            return RedirectToAction("Index");
-        }
 
         [HttpPost("delete")]
         [ValidateAntiForgeryToken]
