@@ -1,54 +1,82 @@
 ﻿@page "/"
 @inject HttpClient Http
 
-<h1>Sprawdź skład!</h1>
+<div class="checker">
+    <div class="content-section checker-description">
+        <h2 class="checker-description-title" @onclick="(() => isCheckerDescriptionContentVisible = !isCheckerDescriptionContentVisible)">
+            O co chodzi?
+            <span class="checker-description-toggle oi oi-chevron-bottom" aria-hidden="true"></span>
+        </h2> 
+        <div class="checker-description-content @(isCheckerDescriptionContentVisible ? "" : "checker-description-content-hidden")">
+            <p>Tu możesz sprawdzić składniki kosmetyku który Cię interesuje.</p>
+            <p>Jak to zrobić?</p>
+            <ul>
+                <li>w pole formularza wpisz <u>tylko</u> nazwy składników</li>    
+                <li>każdy składnik oddziel przecinkiem</li>
+            </ul>
+            <p>Każdy składnik zostanie sprawdzony w naszej bazie i opisany informacjami ważnymi przy metodzie CG</p>
+            <p>Każdą nazwę, która nie znajduje się w naszej bazie, zapiszemy i dodamy ze wszystkimi informacjami jak najszybciej</p>
+        </div>
+    </div>
 
-@if (!string.IsNullOrWhiteSpace(HttpErrorString))
-{
-    <div class="text-danger">
-        @HttpErrorString
+    <div class="content-section checker-form">
+        <h1 class="checker-form-title">Sprawdź skład!</h1>
+        <div class="form-group shadow-textarea">
+            <label for="IngredientsNames">Wpisz składniki które chcesz sprawdzić:</label>
+            <textarea @bind-value="IngredientsNames" @bind-value:event="oninput" class="form-control z-depth-1" rows="3" placeholder="składnik 1, składnik 2, ..."></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn checker-form-button" @onclick="HandleValidSubmit">sprawdź skład</button>
+        </div>
     </div>
-}
-<div>
-    <div class="form-group shadow-textarea">
-        <label for="IngredientsNames">Tu wpisz skład do sprawdzenia:</label>
-        <textarea @bind-value="IngredientsNames" @bind-value:event="oninput" class="form-control z-depth-1" rows="3" placeholder="składnik 1, składnik 2, ..."></textarea>
-    </div>
-    <div class="form-group">
-        <button @onclick="HandleValidSubmit">sprawdź skład</button>
-    </div>
-</div>
 
-@if (notFoundNames != null)
-{
-    <div class="alert alert-danger">
-        <h4>Nie znaleźliśmy wszystkich nazw. Sprawdź czy są wpisane poprawnie.</h4>
-        <small>Każdy składnik powinien być oddzielony przecinkiem i spacją na wzór: [składnik1, składnik2, składnik z paru wyrazów, składnik4]</small>
-        <p>
-            <strong>@notFoundNames</strong>
-        </p>
-    </div>
-}
+    <div class="checker-results">
 
-@if (ingredientsList != null)
-{
-    <h3>znalezione składniki:</h3>
-    <div class="list-group list-group-flush">
-        @foreach (var ingredient in ingredientsList)
+        @if (!string.IsNullOrWhiteSpace(HttpErrorString))
         {
-            <DisplayIngredient Ingredient=ingredient />
+            <div class="alert alert-danger">
+                @HttpErrorString
+            </div>
         }
-    </div>
-}
+        
 
+
+        @*@if (ingredientsList != null)
+        {*@
+            <div class="content-section checker-results-list">
+                <h2>Znalezione składniki:</h2>
+                <div class="list-group list-group-flush">
+                    @foreach (var ingredient in ingredientsList)
+                    {
+                        <DisplayIngredient Ingredient=ingredient />
+                    }
+                </div>
+            </div>
+        @*}*@
+
+        @*@if (notFoundNames != null)
+        {*@
+            <div class="content-section checker-results-missing">
+                <p>Nazwy, których nie ma w naszej bazie: <span>@notFoundNames</span></p>
+                <p class="checker-results-missing-description">
+                    Sprawdź czy skład jest wpisany poprawnie. <br>
+                    Każdy składnik powinien być oddzielony przecinkiem: <code>składnik1, składnik2, składnik z paru wyrazów, składnik4</code>
+                </p>
+            </div>
+        @*}*@
+    </div>
+
+</div>
 
 
 @code{
 
     public string IngredientsNames { get; set; }
-    private List<IngredientModel> ingredientsList;
-    private string notFoundNames;
+    private List<IngredientModel> ingredientsList = new List<IngredientModel>();
+    private string notFoundNames = "test";
+    private bool isCheckerDescriptionContentVisible = false;
     private string HttpErrorString;
+
     private async Task HandleValidSubmit()
     {
         if (string.IsNullOrEmpty(IngredientsNames))
@@ -79,8 +107,8 @@
         }
         catch (Exception ex)
         {
-
-            HttpErrorString = ex.Message;
+            Console.WriteLine(ex);
+            HttpErrorString = " Error. Nie udało się połączyć z serwerem.";
         }
     }
 }

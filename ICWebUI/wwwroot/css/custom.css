@@ -1,0 +1,135 @@
+﻿:root {
+    --bp-medium: 768px;
+    --bp-large: 1024px;
+
+    --c-danger: red;
+}
+
+body {
+    font-size: 18px;
+    background-color: rgba(0,0,0,0.02);
+    background-image: radial-gradient(rgba(0,0,0,0.1) 1px, transparent 0);
+    background-size: 10px 10px;
+}
+h1,h2,h3,h4,h5,h6,h7 {
+    margin: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+p {
+    margin-bottom: 0.5em;
+}
+
+
+
+.content {
+    max-width: var(--bp-large);
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.content-section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+.checker-description {
+    border: dashed 2px rgba(0,0,0,0.4);
+    color: rgba(0,0,0,0.6);
+    font-size: 0.75em;
+    margin-bottom: 2rem;
+    padding: 0.25em;
+}
+.checker-description-title {
+    text-align: center;
+}
+.checker-description-toggle {
+    font-size: 0.75em;
+}
+.checker-description-content-hidden {
+    display: none;
+}
+
+.checker-form-title {
+    margin: 0.5em 0;
+}
+.checker-form-button {
+    border: solid 2px black;
+}
+
+
+.checker-results-list {
+    margin: 1em 0;
+
+}
+
+.checker-results-missing {
+    border: dashed 3px rgba(255,0,0,0.3);
+    background-color: rgba(255,230,230,1);
+    color: rgba(70,0,0,0.8);
+}
+
+.checker-results-missing code {
+    color: black;
+    background-color: rgba(255,255,255,0.5);
+    padding: 0.25em;
+}
+
+.checker-results-missing span {
+    text-decoration: underline;
+    color: black;
+}
+
+.checker-results-missing-description {
+    font-size: 0.75em;
+}
+
+
+
+@media (min-width: 1024px) {
+
+    .content-section {
+        padding: 1em;
+    }
+
+    .checker {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        grid-template-rows: 1fr auto;
+        grid-gap: 2rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .checker-form {
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
+
+    .checker-description {
+        grid-column: 2/3;
+        grid-row: 1/2;
+        margin-bottom: 0;
+/*        padding: 1em;*/
+    }
+
+    .checker-description-toggle {
+        display: none;
+    }
+    .checker-description-content-hidden {
+        display: block;
+    }
+
+    .checker-results {
+        grid-column: 1/3;
+        grid-row: 2/3;
+    }
+}
