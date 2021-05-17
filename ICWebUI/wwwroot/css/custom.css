@@ -1,7 +1,7 @@
 ﻿:root {
     --bp-medium: 768px;
     --bp-large: 1024px;
-
+    --c-primary: #5DBBBA;
     --c-danger: red;
 }
 
@@ -26,7 +26,6 @@ h2 {
 p {
     margin-bottom: 0.5em;
 }
-
 
 
 .content {
@@ -57,23 +56,39 @@ p {
 .checker-description-content-hidden {
     display: none;
 }
-
 .checker-form-title {
     margin: 0.5em 0;
+    text-decoration: underline;
+    text-decoration-color: var(--c-primary);
+}
+.shadow-textarea textarea:focus {
+    box-shadow: 0 0 0 2px var(--c-primary);
+    transition: box-shadow ease-in-out 200ms;
 }
 .checker-form-button {
-    border: solid 2px black;
+    background-color: var(--c-primary);
+    font-weight: bold;
+    transition: box-shadow ease-in-out 200ms;
+}
+
+.checker-form-button:focus,
+.checker-form-button:hover {
+    box-shadow: 
+        0 0 0 3px white,
+        0 0 0 6px var(--c-primary);
 }
 
 
 .checker-results-list {
     margin: 1em 0;
-
+}
+.checker-results-list-title {
+    text-decoration: underline;
+    text-decoration-color: var(--c-primary);
 }
 
 .checker-results-missing {
     border: dashed 3px rgba(255,0,0,0.3);
-    background-color: rgba(255,230,230,1);
     color: rgba(70,0,0,0.8);
 }
 
@@ -93,6 +108,13 @@ p {
 }
 
 
+.ingredient-type-display {
+    color: #404040;
+}
+
+.ingredient strong {
+    color: #606060;
+}
 
 @media (min-width: 1024px) {
 
@@ -118,7 +140,6 @@ p {
         grid-column: 2/3;
         grid-row: 1/2;
         margin-bottom: 0;
-/*        padding: 1em;*/
     }
 
     .checker-description-toggle {

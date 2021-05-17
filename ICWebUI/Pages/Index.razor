@@ -26,7 +26,7 @@
             <textarea @bind-value="IngredientsNames" @bind-value:event="oninput" class="form-control z-depth-1" rows="3" placeholder="składnik 1, składnik 2, ..."></textarea>
         </div>
         <div class="form-group">
-            <button class="btn checker-form-button" @onclick="HandleValidSubmit">sprawdź skład</button>
+            <button class="btn checker-form-button" @onclick="HandleValidSubmit">sprawdź</button>
         </div>
     </div>
 
@@ -41,21 +41,21 @@
         
 
 
-        @*@if (ingredientsList != null)
-        {*@
+        @if (ingredientsList != null)
+        {
             <div class="content-section checker-results-list">
-                <h2>Znalezione składniki:</h2>
-                <div class="list-group list-group-flush">
+                <h2 class="checker-results-list-title">Znalezione składniki:</h2>
+                <ul class="list-group list-group-flush">
                     @foreach (var ingredient in ingredientsList)
                     {
                         <DisplayIngredient Ingredient=ingredient />
                     }
-                </div>
+                </ul>
             </div>
-        @*}*@
+        }
 
-        @*@if (notFoundNames != null)
-        {*@
+        @if (notFoundNames != null)
+        {
             <div class="content-section checker-results-missing">
                 <p>Nazwy, których nie ma w naszej bazie: <span>@notFoundNames</span></p>
                 <p class="checker-results-missing-description">
@@ -63,7 +63,7 @@
                     Każdy składnik powinien być oddzielony przecinkiem: <code>składnik1, składnik2, składnik z paru wyrazów, składnik4</code>
                 </p>
             </div>
-        @*}*@
+        }
     </div>
 
 </div>
@@ -72,8 +72,8 @@
 @code{
 
     public string IngredientsNames { get; set; }
-    private List<IngredientModel> ingredientsList = new List<IngredientModel>();
-    private string notFoundNames = "test";
+    private List<IngredientModel> ingredientsList;
+    private string notFoundNames;
     private bool isCheckerDescriptionContentVisible = false;
     private string HttpErrorString;
 
