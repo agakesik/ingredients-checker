@@ -1,9 +1,9 @@
-﻿<div class="list-group-item ingredient-display-list" @onclick="(() => isShowDetails = !isShowDetails)">
+﻿<li class="list-group-item ingredient" @onclick="(() => isShowDetails = !isShowDetails)">
     <h4>
         <strong>@Ingredient.Name</strong>
         @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Name))
         {
-            <small class="ingredient-type-display">(@Ingredient.IngredientType.Name)</small>
+            <small class="ingredient-type">(@Ingredient.IngredientType.Name)</small>
         }
         @if (areDetails)
         {
@@ -13,37 +13,37 @@
     </h4>
 
 
-        @if (isShowDetails)
-            {
-                <div class="ingredient-display-details">
-                    @if (!string.IsNullOrWhiteSpace(Ingredient.Details))
-                    {
-                        <p>
-                            <strong>Ingredient details:</strong> @Ingredient.Details
-                        </p>
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details))
-                    {
-                        <p>
-                            <strong>Ingredient Type details:</strong> @Ingredient.IngredientType.Details
-                        </p>
-                    }
-                </div>
-            }
-    </div>
-
-    @code {
-        [Parameter]
-        public IngredientModel Ingredient { get; set; }
-
-        private bool isShowDetails = false;
-        private bool areDetails = false;
-
-        protected override void OnInitialized()
+    @if (isShowDetails)
         {
-            areDetails = !string.IsNullOrWhiteSpace(Ingredient.Details) || !string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details);
+            <div class="ingredient-details">
+                @if (!string.IsNullOrWhiteSpace(Ingredient.Details))
+                {
+                    <p>
+                        <strong>Ingredient details:</strong> @Ingredient.Details
+                    </p>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details))
+                {
+                    <p>
+                        <strong>Ingredient Type details:</strong> @Ingredient.IngredientType.Details
+                    </p>
+                }
+            </div>
         }
+</li>
 
+@code {
+    [Parameter]
+    public IngredientModel Ingredient { get; set; }
 
+    private bool isShowDetails = false;
+    private bool areDetails = false;
+
+    protected override void OnInitialized()
+    {
+        areDetails = !string.IsNullOrWhiteSpace(Ingredient.Details) || !string.IsNullOrWhiteSpace(Ingredient.IngredientType.Details);
     }
+
+
+}

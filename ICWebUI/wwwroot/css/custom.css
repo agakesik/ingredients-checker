@@ -83,6 +83,7 @@ p {
     margin: 1em 0;
 }
 .checker-results-list-title {
+    margin: 0.5em 0;
     text-decoration: underline;
     text-decoration-color: var(--c-primary);
 }
@@ -108,16 +109,28 @@ p {
 }
 
 
-.ingredient-type-display {
-    color: #404040;
+.ingredient {
+
+    border: none;
+}
+
+.ingredient:nth-child(2n) {
+    background-color: rgba(0,0,0,0.05);
 }
 
 .ingredient strong {
     color: #606060;
 }
 
-@media (min-width: 1024px) {
+.ingredient-type {
+    color: #404040;
+}
 
+.ingredient-details {
+    margin: 0.5em;
+}
+
+@media (min-width: 1024px) {
     .content-section {
         padding: 1em;
     }
