@@ -1,32 +1,38 @@
 ﻿@page "/ingredients"
 @inject HttpClient Http 
 
-<h2>Lista składników</h2>
+<div class="content-section">
 
-@if (!string.IsNullOrWhiteSpace(errotMessage))
-{
-    <h4>Error</h4>
-    <p>@errotMessage</p>
-}
-else if (ingredientsList is null)
-{
-    <h4>Ładuję listę</h4>
-}
-else
-{
-    <div class="list-group list-group-flush">
-        @foreach (var ingredient in ingredientsList)
-        {
-            <DisplayIngredient Ingredient=ingredient />
-        }
-    </div>
-    
-}
 
+    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <h4>Error</h4>
+        <p>@errorMessage</p>
+    }
+    else if (ingredientsList is null)
+    {
+        <h4>Ładuję listę</h4>
+    }
+    else
+    {
+        <h1 class="registry-title">Lista wszystkich składników w bazie:</h1>
+
+        <div>
+            <ul class="list-group">
+                @foreach (var ingredient in ingredientsList)
+                {
+                    <DisplayIngredient Ingredient=ingredient />
+                }
+            </ul>
+        </div>
+
+    }
+
+</div>
 
 @code {
     private List<IngredientModel> ingredientsList;
-    private string errotMessage;
+    private string errorMessage;
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,7 +44,7 @@ else
         }
         else
         {
-            errotMessage = responce.ReasonPhrase;
+            errorMessage = responce.ReasonPhrase;
         }
     }
 }
