@@ -62,6 +62,9 @@ p {
 .nav-link {
     margin-left: 1em;
 }
+.link-name {
+    padding-left: 0.5em;
+}
 .navbar-collapse .nav-item {
     padding-left: 1em;
     border-top: 1px solid rgba(0,0,0,0.2);
@@ -70,6 +73,7 @@ p {
 .navbar a.active .link-name {
     text-decoration: underline;
 }
+
 
 
 

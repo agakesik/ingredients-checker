@@ -13,11 +13,21 @@
     <div class="@navMenuCssClass navbar-collapse">
         <ul class="navbar-nav">
 
-                <li class="nav-item">
-                    <NavLink class="nav-link" @onclick="ToggleNavMenu" href="ingredients">
-                        <span class="oi oi-list" aria-hidden="true"></span> <span class="link-name">Lista składników</span>
-                    </NavLink>
-                </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" @onclick="ToggleNavMenu" href="ingredients">
+                    <span class="oi oi-list" aria-hidden="true"></span> <span class="link-name">Lista składników</span>
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" @onclick="ToggleNavMenu" href="about">
+                    <span class="oi oi-monitor" aria-hidden="true"></span> <span class="link-name">O stronie</span>
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" @onclick="ToggleNavMenu" href="about-hair-care">
+                    <span class="oi oi-book" aria-hidden="true"></span> <span class="link-name">O włosomaniactwie</span>
+                </NavLink>
+            </li>
         </ul>
     </div>
 </nav>
