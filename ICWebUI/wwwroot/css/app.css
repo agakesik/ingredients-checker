@@ -4,29 +4,12 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-a, .btn-link {
-    color: #b789ff;
-}
-
 p {
     margin: 0;
 }
 
 app {
 }
-
-.content {
-    padding-top: 1.1rem;
-}
-
-.navbar {
-    background: #DBC4FF;
-}
-
-    .navbar .nav-item a.active .link-name {
-        text-decoration: underline;
-    }
-
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
@@ -59,13 +42,6 @@ app {
     top: 0.5rem;
 }
 
-.ingredient-type-display {
-    color: #404040;
-}
-
-.ingredient-display-details strong {
-    color: #606060;
-}
 
 @media (max-width: 767.98px) {
 }
