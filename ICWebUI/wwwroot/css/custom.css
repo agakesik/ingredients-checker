@@ -23,14 +23,20 @@ h2 {
     font-size: 1.5em;
 }
 
+a,
+a:hover,
+a:focus {
+    color: inherit;
+}
+
 p {
     margin-bottom: 0.5em;
 }
 
-
 .content {
     max-width: var(--bp-large);
     margin: 0 auto;
+    margin-top: 3em;
     padding: 2rem 0;
 }
 
@@ -39,6 +45,28 @@ p {
     border-radius: 5px;
     padding: 0.5em;
 }
+
+.navbar {
+    background: var(--c-primary);
+    box-shadow: 0 0 20px -10px black;
+    padding: 0;
+}
+.navbar-toggler {
+    margin: 0.5em;
+}
+.nav-link {
+    margin-left: 1em;
+}
+.navbar-collapse .nav-item {
+    padding-left: 1em;
+    border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.navbar a.active .link-name {
+    text-decoration: underline;
+}
+
+
 
 .checker-description {
     border: dashed 2px rgba(0,0,0,0.4);
@@ -137,8 +165,13 @@ p {
 
 
 @media (min-width: 1024px) {
+
     .content-section {
         padding: 1em;
+    }
+
+    .navbar {
+        padding-left: 3em;
     }
 
     .checker {
