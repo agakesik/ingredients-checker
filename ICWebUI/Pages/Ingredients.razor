@@ -1,7 +1,7 @@
 ﻿@page "/ingredients"
 @inject HttpClient Http 
 
-<div class="content-section">
+<section class="content-section">
 
 
     @if (!string.IsNullOrWhiteSpace(errorMessage))
@@ -15,7 +15,7 @@
     }
     else
     {
-        <h1 class="registry-title">Lista wszystkich składników w bazie:</h1>
+        <h1 class="section-title">Lista wszystkich składników w bazie:</h1>
 
         <div>
             <ul class="list-group">
@@ -28,7 +28,7 @@
 
     }
 
-</div>
+</section>
 
 @code {
     private List<IngredientModel> ingredientsList;

@@ -45,6 +45,11 @@ p {
     border-radius: 5px;
     padding: 0.5em;
 }
+.section-title {
+    margin: 0.5em 0;
+    text-decoration: underline;
+    text-decoration-color: var(--c-primary);
+}
 
 .navbar {
     background: var(--c-primary);
@@ -84,11 +89,6 @@ p {
 .checker-description-content-hidden {
     display: none;
 }
-.checker-form-title {
-    margin: 0.5em 0;
-    text-decoration: underline;
-    text-decoration-color: var(--c-primary);
-}
 .shadow-textarea textarea:focus {
     box-shadow: 0 0 0 2px var(--c-primary);
     transition: box-shadow ease-in-out 200ms;
@@ -109,11 +109,6 @@ p {
 
 .checker-results-list {
     margin: 1em 0;
-}
-.checker-results-list-title {
-    margin: 0.5em 0;
-    text-decoration: underline;
-    text-decoration-color: var(--c-primary);
 }
 
 .checker-results-missing {
@@ -136,11 +131,6 @@ p {
     font-size: 0.75em;
 }
 
-.registry-title {
-    margin: 0.5em 0;
-    text-decoration: underline;
-    text-decoration-color: var(--c-primary);
-}
 
 .ingredient {
     border: none;

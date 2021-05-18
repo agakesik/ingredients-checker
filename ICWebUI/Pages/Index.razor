@@ -2,7 +2,7 @@
 @inject HttpClient Http
 
 <div class="checker">
-    <div class="content-section checker-description">
+    <section class="content-section checker-description">
         <h2 class="checker-description-title" @onclick="(() => isCheckerDescriptionContentVisible = !isCheckerDescriptionContentVisible)">
             O co chodzi?
             <span class="checker-description-toggle oi oi-chevron-bottom" aria-hidden="true"></span>
@@ -17,10 +17,10 @@
             <p>Każdy składnik zostanie sprawdzony w naszej bazie i opisany informacjami ważnymi przy metodzie CG</p>
             <p>Każdą nazwę, która nie znajduje się w naszej bazie, zapiszemy i dodamy ze wszystkimi informacjami jak najszybciej</p>
         </div>
-    </div>
+    </section>
 
-    <div class="content-section checker-form">
-        <h1 class="checker-form-title">Sprawdź skład!</h1>
+    <section class="content-section checker-form">
+        <h1 class="section-title">Sprawdź skład!</h1>
         <div class="form-group shadow-textarea">
             <label for="IngredientsNames">Wpisz składniki które chcesz sprawdzić:</label>
             <textarea @bind-value="IngredientsNames" @bind-value:event="oninput" class="form-control z-depth-1" rows="3" placeholder="składnik 1, składnik 2, ..."></textarea>
@@ -28,7 +28,7 @@
         <div class="form-group">
             <button class="btn checker-form-button" @onclick="HandleValidSubmit">sprawdź</button>
         </div>
-    </div>
+    </section>
 
     
 
@@ -45,8 +45,8 @@
 
         @if (ingredientsList != null)
         {
-            <div class="content-section checker-results-list">
-                <h2 class="checker-results-list-title">Znalezione składniki:</h2>
+            <section class="content-section checker-results-list">
+                <h2 class="section-title">Znalezione składniki:</h2>
                 <div>
                     <ul class="list-group">
                         @foreach (var ingredient in ingredientsList)
@@ -55,18 +55,18 @@
                         }
                     </ul>
                 </div>
-            </div>
+            </section>
         }
 
         @if (notFoundNames != null)
         {
-            <div class="content-section checker-results-missing">
+            <section class="content-section checker-results-missing">
                 <p>Nazwy, których nie ma w naszej bazie: <span>@notFoundNames</span></p>
                 <p class="checker-results-missing-description">
                     Sprawdź czy skład jest wpisany poprawnie. <br>
                     Każdy składnik powinien być oddzielony przecinkiem: <code>składnik1, składnik2, składnik z paru wyrazów, składnik4</code>
                 </p>
-            </div>
+            </section>
         }
     </div>
 
