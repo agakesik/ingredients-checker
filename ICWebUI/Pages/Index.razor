@@ -7,7 +7,7 @@
             O co chodzi?
             <span class="checker-description-toggle oi oi-chevron-bottom" aria-hidden="true"></span>
         </h2>
-        <div class="checker-description-content @(isCheckerDescriptionContentVisible ? "" : "checker-description-content-hidden")">
+        <div class="checker-description-content @checkerDescriptionContentVisibility">
             <p>Tu możesz sprawdzić składniki kosmetyku który Cię interesuje.</p>
             <p>Jak to zrobić?</p>
             <ul>
@@ -79,6 +79,7 @@
     private List<IngredientModel> ingredientsList;
     private string notFoundNames;
     private bool isCheckerDescriptionContentVisible = false;
+    private string checkerDescriptionContentVisibility => isCheckerDescriptionContentVisible ? "" : "checker-description-content-hidden";
     private string HttpErrorString;
 
 
