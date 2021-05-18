@@ -36,7 +36,7 @@ p {
 .content {
     max-width: var(--bp-large);
     margin: 0 auto;
-    margin-top: 3em;
+    margin-top: 1em;
     padding: 2rem 0;
 }
 
@@ -44,9 +44,10 @@ p {
     background-color: white;
     border-radius: 5px;
     padding: 0.5em;
+    margin: 2em 0;
 }
 .section-title {
-    margin: 0.5em 0;
+    margin-bottom: 0.5em;
     text-decoration: underline;
     text-decoration-color: var(--c-primary);
 }
@@ -81,7 +82,6 @@ p {
     border: dashed 2px rgba(0,0,0,0.4);
     color: rgba(0,0,0,0.6);
     font-size: 0.75em;
-    margin-bottom: 2rem;
     padding: 0.25em;
 }
 .checker-description-title {
@@ -157,6 +157,12 @@ p {
 }
 
 
+.about-brief {
+    border: dashed 2px rgba(0,0,0,0.4);
+    padding: 0.5em;
+    text-align: justify;
+}
+
 
 @media (min-width: 1024px) {
 
@@ -172,7 +178,7 @@ p {
         display: grid;
         grid-template-columns: 3fr 2fr;
         grid-template-rows: 1fr auto;
-        grid-gap: 2rem;
+        grid-column-gap: 2rem;
         justify-content: center;
         align-items: center;
     }
@@ -185,12 +191,12 @@ p {
     .checker-description {
         grid-column: 2/3;
         grid-row: 1/2;
-        margin-bottom: 0;
     }
 
     .checker-description-toggle {
         display: none;
     }
+
     .checker-description-content-hidden {
         display: block;
     }
@@ -198,5 +204,18 @@ p {
     .checker-results {
         grid-column: 1/3;
         grid-row: 2/3;
+    }
+
+    .about-description {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: repeat(3, auto);
+        align-items: center;
+    }
+
+    .about-brief {
+        grid-column: 2/3;
+        grid-row: 1/-1;
+        height: max-content;
     }
 }
